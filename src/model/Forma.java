@@ -8,7 +8,7 @@ public class Forma {
 	}
 
 	public void setTipoForma(String tipoForma) {
-		Tipo = tipoForma;
+		TipoForma = tipoForma;
 	}
 
 }
