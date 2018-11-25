@@ -1,14 +1,14 @@
-package Model;
+package model;
 
 public abstract class Carta {
-private String Tipo;
+private String TipoCarta;
 
 public String getTipo() {
-	return Tipo;
+	return TipoCarta;
 }
 
 public void setTipo(String tipo) {
-	Tipo = tipo;
+	TipoCarta = tipo;
 }
 
 }
