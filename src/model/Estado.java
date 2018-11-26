@@ -1,11 +1,16 @@
 package model;
 
 public class Estado {
+	private String Nome;
 	private Jogador Dominante;
 	private int Quantidade_de_Tropas;
-	private Estado Vizinhos[];
+	private String Vizinhos[];
 	
-	//métodos
+	public Estado(String nome) {
+		Nome = nome;
+	}
+	
+	//metodos
 	public Jogador getDominante() {
 		return Dominante;
 	}
@@ -18,10 +23,15 @@ public class Estado {
 	public void setQuantidade_de_Tropas(int quantidade_de_Tropas) {
 		Quantidade_de_Tropas = quantidade_de_Tropas;
 	}
-	public Estado[] getVizinhos() {
-		return Vizinhos;
+	public boolean fazFronteiraCom(String nome) {
+		for (int i = 0; i < Vizinhos.length; i++) {
+			if (Vizinhos[i].equals(nome)) {
+				return true;
+			}
+		}
+		return false;
 	}
-	public void setVizinhos(Estado vizinhos[]) {
+	public void setVizinhos(String[] vizinhos) {
 		Vizinhos = vizinhos;
 	}
 
