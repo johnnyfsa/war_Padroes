@@ -10,12 +10,28 @@ import model.Tabuleiro;
 public class Game {
 	
 	private Tabuleiro Mapa;	
-	private ArrayList<Jogador> Jogadores;
+	private ArrayList<Jogador> Jogadores = new ArrayList<Jogador>();
 	private Carta Baralho[];
+	private int NumJogadores;
 	
+	public void setNumJogadores(int num) {
+		NumJogadores = num;
+	}
+	
+	public void setCordoJogador(String Cor)
+	{
+		Jogador aux = new Jogador();
+		aux.setCor(Cor);
+		Jogadores.add(aux);
+	}
+	public ArrayList<Jogador> getJogadores()
+	{
+		return Jogadores;
+	}
+		
 	
 	public void criarMapa() {
-		// Estados Região Norte
+		// Estados Regiï¿½o Norte
 		Estado AC = new Estado("AC");
 		{
 			String[] AuxViz = {"AM", "RO"};	
@@ -47,7 +63,7 @@ public class Game {
 			PA.setVizinhos(AuxViz);
 		}
 		
-		// Região Nordeste
+		// Regiï¿½o Nordeste
 		Estado AL = new Estado("AL");
 		{
 			String[] AuxViz = {"BA", "PE", "SE"};
@@ -94,7 +110,7 @@ public class Game {
 			BA.setVizinhos(AuxViz);
 		}
 		
-		// Região Centro-Oeste
+		// Regiï¿½o Centro-Oeste
 		Estado MT = new Estado("MT");
 		{
 			String[] AuxViz = {"RO", "AM", "PA", "GO", "MG", "SP", "PR"};
@@ -106,7 +122,7 @@ public class Game {
 			GO.setVizinhos(AuxViz);			
 		}
 		
-		// Região Sudeste
+		// Regiï¿½o Sudeste
 		Estado MG = new Estado("MG");
 		{
 			String[] AuxViz = {"SP", "GO", "RJ", "BA", "ES"};
@@ -128,7 +144,7 @@ public class Game {
 			RJ.setVizinhos(AuxViz);			
 		}
 		
-		// Região Sul
+		// Regiï¿½o Sul
 		Estado PR = new Estado("PR");
 		Estado SC = new Estado("SC");
 		Estado RS = new Estado("RS");				
