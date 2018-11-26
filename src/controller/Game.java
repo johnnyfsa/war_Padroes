@@ -18,12 +18,16 @@ public class Game {
 		NumJogadores = num;
 	}
 	
-	public void setCordoJogador(String Cor)
+	public void setCordoJogador(Jogador player, String Cor)
 	{
-		Jogador aux = new Jogador();
-		aux.setCor(Cor);
-		Jogadores.add(aux);
+		player.setCor(Cor);
 	}
+	
+	public void addJogador(Jogador player) 
+	{
+		Jogadores.add(player);
+	}
+	
 	public ArrayList<Jogador> getJogadores()
 	{
 		return Jogadores;

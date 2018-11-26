@@ -1,4 +1,5 @@
 package controller;
+import model.*;
 import java.util.Scanner;
 
 public class Main {
@@ -21,8 +22,10 @@ public class Main {
 			{
 				System.out.println("Associe uma Cor ao jogador " + i);
 				String Cor = scan.next();
-				Jogo.setCordoJogador(Cor);
-			}	
+				Jogador aux = new Jogador();
+				Jogo.setCordoJogador(aux, Cor);
+				Jogo.addJogador(aux);
+			}
 		}
 	}
 
