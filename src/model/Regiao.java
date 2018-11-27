@@ -1,14 +1,16 @@
 package model;
 
-public class Regiao {
-	private Estado Estados[];
+import java.util.ArrayList;
 
-	public Estado[] getEstados() {
+public class Regiao {
+	private ArrayList<Estado> Estados;
+
+	public ArrayList<Estado> getEstados() {
 		return Estados;
 	}
 
-	public void setEstados(Estado estados[]) {
-		Estados = estados;
+	public void addEstados(Estado estado) {
+		Estados.add(estado);
 	}
 
 }
