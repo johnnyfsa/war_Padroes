@@ -159,25 +159,25 @@ public class Game {
 			String[] AuxViz = {"SP", "GO", "RJ", "BA", "ES"};
 			MG.setVizinhos(AuxViz);			
 		}
-		centroOeste.addEstados(MG);
+		sudeste.addEstados(MG);
 		Estado ES = new Estado("ES");
 		{
 			String[] AuxViz = {"RJ", "MG"};
 			ES.setVizinhos(AuxViz);			
 		}
-		centroOeste.addEstados(ES);
+		sudeste.addEstados(ES);
 		Estado SP = new Estado("SP");
 		{
 			String[] AuxViz = {"MG", "PR", "RJ", "MT", "GO"};
 			SP.setVizinhos(AuxViz);			
 		}
-		centroOeste.addEstados(SP);
+		sudeste.addEstados(SP);
 		Estado RJ = new Estado("RJ");
 		{
 			String[] AuxViz = {"SP", "MG", "ES"};
 			RJ.setVizinhos(AuxViz);			
 		}
-		centroOeste.addEstados(RJ);
+		sudeste.addEstados(RJ);
 		
 		// Regiao Sul
 		Regiao sul = new Regiao("Sul");
