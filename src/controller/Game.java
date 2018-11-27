@@ -1,6 +1,7 @@
 package controller;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import model.*;
 
 
@@ -9,11 +10,6 @@ public class Game {
 	private Tabuleiro Mapa;	
 	private ArrayList<Jogador> Jogadores = new ArrayList<Jogador>();
 	private ArrayList<Carta> Baralho = new ArrayList<Carta>();
-	private int NumJogadores;
-	
-	public void setNumJogadores(int num) {
-		NumJogadores = num;
-	}
 	
 	public void setCordoJogador(Jogador player, String Cor)
 	{
@@ -234,6 +230,26 @@ public class Game {
 	}
 	//testes
 	
+        
+        public void embaralhar(){
+            Collections.shuffle(Baralho);
+        }
+        
+        public void distribuirEstados(){
+            int jogadorIndex;
+            for (int i = 0; i < Baralho.size();i++){                
+                jogadorIndex = i%Jogadores.size();
+                if(!(Baralho.get(i).getTipo().equals("Coringa"))){
+                    ((CartaEstado)Baralho.get(i)).getEstado().setDominante(Jogadores.get(jogadorIndex));
+                    ((CartaEstado)Baralho.get(i)).getEstado().setQuantidade_de_Tropas(1);
+                    Jogadores.get(jogadorIndex).adicionarTerritorios();
+                }
+            }
+        }
+        
+        public int getNumeroJogadores(){
+            return Jogadores.size();
+        }
 	//printa o baralho
 	public void printaBaralho()
 	{
@@ -255,11 +271,19 @@ public class Game {
 		for (int i = 0;i < AuxReg.length; i++) {
 			
 			for (int j = 0; j < AuxReg[i].getEstados().size();	j++) {
-				System.out.println("Regiao: " + AuxReg[i].getNome() + ": Estado > " + AuxReg[i].getEstados().get(j).getNome());
+				System.out.println("Regiao: " + AuxReg[i].getNome() + ": Estado > " + AuxReg[i].getEstados().get(j).getNome() + ". Jogador: " + AuxReg[i].getEstados().get(j).getDominante().getCor());
 				
 			}
 		}
 	}
+        
+        public void distribuirTropas(){
+            for (int i = 0; i < Jogadores.size();i++){
+                System.out.println(Jogadores.get(i).getQuantidadeTerritorios());
+                System.out.println("Jogador " + (i+1) + " cor " + Jogadores.get(i).getCor() + ": Tem " + Math.ceil(Jogadores.get(i).getQuantidadeTerritorios()/2.0) + " tropas para distribuir:");
+            }
+        }
+        
 
 }
 

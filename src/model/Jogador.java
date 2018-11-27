@@ -4,7 +4,20 @@ public class Jogador {
 	private Carta Mao[];
 	private String Cor;
 	private int Exercitos_Disponiveis;
-
+        private int quantidadeTerritorios = 0;
+        
+        public void adicionarTerritorios(){
+            quantidadeTerritorios++;
+        }
+        
+        public void removerTerritorios(){
+            quantidadeTerritorios--;
+        }
+        
+        public int getQuantidadeTerritorios(){
+            return quantidadeTerritorios;
+        }
+        
 	public Carta[] getMao() {
 		return Mao;
 	}

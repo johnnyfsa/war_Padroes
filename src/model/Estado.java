@@ -12,7 +12,10 @@ public class Estado {
 	
 	public String getNome() {
 		return Nome;
-	}
+	}        
+        public void setNome(String n){
+            Nome = n;
+        }
 	//metodos
 	public Jogador getDominante() {
 		return Dominante;
