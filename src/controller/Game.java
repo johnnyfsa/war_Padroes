@@ -1,18 +1,14 @@
 package controller;
 
 import java.util.ArrayList;
+import model.*;
 
-import model.Carta;
-import model.Estado;
-import model.Jogador;
-import model.Regiao;
-import model.Tabuleiro;
 
 public class Game {
 	
 	private Tabuleiro Mapa;	
 	private ArrayList<Jogador> Jogadores = new ArrayList<Jogador>();
-	private Carta Baralho[];
+	private ArrayList<Carta> Baralho = new ArrayList<Carta>();
 	private int NumJogadores;
 	
 	public void setNumJogadores(int num) {
@@ -205,13 +201,62 @@ public class Game {
 		Mapa = new Tabuleiro();
 		Mapa.setRegioes(AuxReg);
 	}
+	//inicia o Baralho
+	public void initBaralho() {
+		Regiao[] AuxReg = Mapa.getRegioes();
+		int k=1;//essa variavel aqui controla quantas cartas foram distribuidas no baralho ate o momento
+		for (int i = 0;i < AuxReg.length; i++) {
+			for (int j = 0; j < AuxReg[i].getEstados().size();	j++) {
+				CartaEstado auxCarta = new CartaEstado();
+				auxCarta.setEstado(AuxReg[i].getEstados().get(j));
+				/*Como sao 24 estados e as cartas que o jogador ganha ao fim do turno, apos ter conquistado um terreno
+				  são aleatorias, basta que haja um numero igual de formas, 24 é um número sivisivel por 3 (existem 3 formas)*/
+				if(k<=8) 
+				{
+					auxCarta.setForma(new Triangulo());
+				}
+				else if(k>8 && k<=16) 
+				{
+					auxCarta.setForma(new Quadrado());
+				}
+				else if(k>16) 
+				{
+					auxCarta.setForma(new Circulo());
+				}
+				Baralho.add(auxCarta);
+				k++;
+			}
+		}
+		for (int i=0;i<6;i++) 
+		{
+			Baralho.add(new Coringa());
+		}
+	}
+	//testes
 	
+	//printa o baralho
+	public void printaBaralho()
+	{
+		for(int i=0;i<Baralho.size();i++) 
+		{
+			if(Baralho.get(i).getTipo()!= "Coringa" ) 
+			{
+				System.out.println("Carta Tipo:"+ Baralho.get(i).getTipo() + " Estado:" + ((CartaEstado) Baralho.get(i)).getEstado().getNome() +" Forma:"+((CartaEstado)Baralho.get(i)).getForma().getTipoForma());
+			}
+			else 
+			{
+				System.out.println("Carta Tipo:" + Baralho.get(i).getTipo());
+			}
+		}
+	}
+	//printa as regiões e seus estados
 	public void debug() {
 		Regiao[] AuxReg = Mapa.getRegioes();
 		for (int i = 0;i < AuxReg.length; i++) {
 			
 			for (int j = 0; j < AuxReg[i].getEstados().size();	j++) {
-				System.out.println("Regiao: " + AuxReg[i].getNome() + ": Estado > " + AuxReg[i].getEstados().get(j).getNome());				
+				System.out.println("Regiao: " + AuxReg[i].getNome() + ": Estado > " + AuxReg[i].getEstados().get(j).getNome());
+				
 			}
 		}
 	}

@@ -8,7 +8,9 @@ public class Main {
 		// TODO Auto-generated method stub
 		Game Jogo = new Game();
 		Jogo.criarMapa();
-		Jogo.debug();
+		//Jogo.debug();
+		Jogo.initBaralho();
+		Jogo.printaBaralho();
 		System.out.println("Digite o numero de jogadores");
 		Scanner scan = new Scanner(System.in);
 		int numJogadores = scan.nextInt();

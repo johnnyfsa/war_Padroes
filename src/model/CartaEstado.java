@@ -4,6 +4,10 @@ public class CartaEstado extends Carta {
 	private Estado Estado;
 	private Forma Forma;
 
+	public CartaEstado() {
+		this.setTipo("Carta Estado");
+	}
+	
 	public Estado getEstado() {
 		return Estado;
 	}
