@@ -37,7 +37,7 @@ public class Game {
 	
 	public void criarMapa() {
 		//Estados Regiao Norte
-		Regiao norte = new Regiao(); 
+		Regiao norte = new Regiao("Norte"); 
 		Estado AC = new Estado("AC");
 		{
 			String[] AuxViz = {"AM", "RO"};	
@@ -81,7 +81,7 @@ public class Game {
 		norte.addEstados(PA);
 
 		// Regiao Nordeste
-		Regiao nordeste = new Regiao(); 
+		Regiao nordeste = new Regiao("Nordeste"); 
 		Estado AL = new Estado("AL");
 		{
 			String[] AuxViz = {"BA", "PE", "SE"};
@@ -138,7 +138,7 @@ public class Game {
 		nordeste.addEstados(BA);
 		
 		// Regi�o Centro-Oeste
-		Regiao centroOeste = new Regiao();
+		Regiao centroOeste = new Regiao("Centro Oeste");
 		Estado MT = new Estado("MT");
 		{
 			String[] AuxViz = {"RO", "AM", "PA", "GO", "MG", "SP", "PR"};
@@ -153,7 +153,7 @@ public class Game {
 		centroOeste.addEstados(GO);
 		
 		// Regi�o Sudeste
-		Regiao sudeste = new Regiao();
+		Regiao sudeste = new Regiao("Sudeste");
 		Estado MG = new Estado("MG");
 		{
 			String[] AuxViz = {"SP", "GO", "RJ", "BA", "ES"};
@@ -180,7 +180,7 @@ public class Game {
 		centroOeste.addEstados(RJ);
 		
 		// Regiao Sul
-		Regiao sul = new Regiao();
+		Regiao sul = new Regiao("Sul");
 		Estado PR = new Estado("PR");
 		{
 			String[] AuxViz = {"MT", "SP", "SC"};
@@ -205,4 +205,16 @@ public class Game {
 		Mapa = new Tabuleiro();
 		Mapa.setRegioes(AuxReg);
 	}
+	
+	public void debug() {
+		Regiao[] AuxReg = Mapa.getRegioes();
+		for (int i = 0;i < AuxReg.length; i++) {
+			
+			for (int j = 0; j < AuxReg[i].getEstados().size();	j++) {
+				System.out.println("Regiao: " + AuxReg[i].getNome() + ": Estado > " + AuxReg[i].getEstados().get(j).getNome());				
+			}
+		}
+	}
+
 }
+

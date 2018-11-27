@@ -8,12 +8,13 @@ public class Main {
 		// TODO Auto-generated method stub
 		Game Jogo = new Game();
 		Jogo.criarMapa();
-		System.out.println("Digite o número de jogadores");
+		Jogo.debug();
+		System.out.println("Digite o numero de jogadores");
 		Scanner scan = new Scanner(System.in);
 		int numJogadores = scan.nextInt();
 		if(numJogadores<2||numJogadores>5) 
 		{
-			System.out.println("Número de Jogadores Inválido");
+			System.out.println("Numero de Jogadores Invalido");
 		}
 		else 
 		{

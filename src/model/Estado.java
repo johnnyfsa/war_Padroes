@@ -10,6 +10,9 @@ public class Estado {
 		Nome = nome;
 	}
 	
+	public String getNome() {
+		return Nome;
+	}
 	//metodos
 	public Jogador getDominante() {
 		return Dominante;
