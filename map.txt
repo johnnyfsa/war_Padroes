@@ -1,0 +1,9 @@
+regiao;sul
+estado;SC;RS;PR
+estado;RS;SC
+estado;PR;SC;MT;SP
+regiao;sudeste
+.
+.
+.
+
