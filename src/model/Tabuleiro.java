@@ -1,13 +1,19 @@
 package model;
 
-public class Tabuleiro {
-	private Regiao Regioes[];
+import java.util.ArrayList;
 
-	public Regiao[] getRegioes() {
+public class Tabuleiro {
+	private ArrayList<Regiao> Regioes;
+	
+	public Tabuleiro() {
+		Regioes = new ArrayList<Regiao>();
+	}
+
+	public ArrayList<Regiao> getRegioes() {
 		return Regioes;
 	}
 
-	public void setRegioes(Regiao regioes[]) {
-		Regioes = regioes;
+	public void addRegiao(Regiao Reg) {
+		Regioes.add(Reg);
 	}
 }

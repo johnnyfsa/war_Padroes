@@ -1,21 +1,24 @@
 package model;
 
+import java.util.ArrayList;
+
 public class Estado {
 	private String Nome;
 	private Jogador Dominante;
 	private int Quantidade_de_Tropas;
-	private String Vizinhos[];
+	private ArrayList<String> Vizinhos;
 	
 	public Estado(String nome) {
 		Nome = nome;
+		Vizinhos = new ArrayList<String>();
 	}
 	
 	public String getNome() {
 		return Nome;
 	}        
-        public void setNome(String n){
-            Nome = n;
-        }
+    public void setNome(String Nome){
+            this.Nome = Nome;
+    }
 	//metodos
 	public Jogador getDominante() {
 		return Dominante;
@@ -30,15 +33,15 @@ public class Estado {
 		Quantidade_de_Tropas = quantidade_de_Tropas;
 	}
 	public boolean fazFronteiraCom(String nome) {
-		for (int i = 0; i < Vizinhos.length; i++) {
-			if (Vizinhos[i].equals(nome)) {
+		for (int i = 0; i < Vizinhos.size(); i++) {
+			if (Vizinhos.get(i).equals(nome)) {
 				return true;
 			}
 		}
 		return false;
 	}
-	public void setVizinhos(String[] vizinhos) {
-		Vizinhos = vizinhos;
+	public void addVizinhos(String vizinho) {
+		Vizinhos.add(vizinho);
 	}
 
 }

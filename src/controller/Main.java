@@ -26,7 +26,7 @@ public class Main {
                         Jogo.addJogador(aux);
                 }
                 Jogo.distribuirEstados();
-		Jogo.debug();
+                Jogo.debug();
                 Jogo.distribuirTropas();
 		
 	}

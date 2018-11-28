@@ -1,9 +1,49 @@
-regiao;sul
-estado;SC;RS;PR
-estado;RS;SC
-estado;PR;SC;MT;SP
-regiao;sudeste
-.
-.
-.
+sul 
+
+SC RS PR END
+RS SC END
+PR SC MT SP END
+
+}
+
+Norte
+
+AC AM RO END
+AM AC RO RR PA MT END
+RO AC AM MT END
+RR PA AM END
+AP PA END
+PA  AM MT GO MA AP RR END
+
+}
+
+Nordeste
+
+AL BA PE SE END
+MA PA PI GO END
+PI BA MA GO CE PE END
+CE PI RN PB PE END
+RN PB CE END
+PB CE RN PE END
+PE AL PB BA PI CE END
+SE BA AL END
+BA PI SE AL PE MG ES GO END
+
+}
+
+Centro-Oeste
+
+MT RO AM PA GO MG SP PR END
+GO MT PA MA PI BA MG END
+
+}
+
+Sudeste
+
+MG SP GO RJ BA ES END
+ES RJ MG
+SP MG PR RJ MT GO END
+RJ SP MG ES END
+
+}
 
