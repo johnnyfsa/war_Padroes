@@ -53,6 +53,7 @@ public class Game {
 					Reg.addEstados(Est);
 				}
 				Mapa.addRegiao(Reg);
+				scanner.close();
 			}
 			/*for(int regs=0;regs<Mapa.getRegioes().size();regs++) 
 			{
