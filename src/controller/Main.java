@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 public class Main {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws Exception {
 		// TODO Auto-generated method stub
 		Game Jogo = new Game();
 		Jogo.criarMapa();                
@@ -26,9 +26,9 @@ public class Main {
                         Jogo.addJogador(aux);
                 }
                 Jogo.distribuirEstados();
-                Jogo.debug();
+                Jogo.printMapa();
                 Jogo.distribuirTropas();
-		
+                
 	}
 
 }

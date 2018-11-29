@@ -1,11 +1,3 @@
-sul 
-
-SC RS PR END
-RS SC END
-PR SC MT SP END
-
-}
-
 Norte
 
 AC AM RO END
@@ -31,13 +23,6 @@ BA PI SE AL PE MG ES GO END
 
 }
 
-Centro-Oeste
-
-MT RO AM PA GO MG SP PR END
-GO MT PA MA PI BA MG END
-
-}
-
 Sudeste
 
 MG SP GO RJ BA ES END
@@ -47,3 +32,17 @@ RJ SP MG ES END
 
 }
 
+Centro-Oeste
+
+MT RO AM PA GO MG SP PR END
+GO MT PA MA PI BA MG END
+
+}
+
+Sul 
+
+SC RS PR END
+RS SC END
+PR SC MT SP END
+
+}

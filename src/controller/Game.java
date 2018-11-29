@@ -53,7 +53,7 @@ public class Game {
 					Reg.addEstados(Est);
 				}
 				Mapa.addRegiao(Reg);
-				scanner.close();
+			//	scanner.close();
 			}
 			/*for(int regs=0;regs<Mapa.getRegioes().size();regs++) 
 			{
@@ -150,13 +150,47 @@ public class Game {
 			}
 		}
 	}
-        
-        public void distribuirTropas(){
-            for (int i = 0; i < Jogadores.size();i++){
-                System.out.println(Jogadores.get(i).getQuantidadeTerritorios());
-                System.out.println("Jogador " + (i+1) + " cor " + Jogadores.get(i).getCor() + ": Tem " + Math.ceil(Jogadores.get(i).getQuantidadeTerritorios()/2.0) + " tropas para distribuir:");
-            }
+      
+	public void printMapa() {
+		ArrayList<Regiao> AuxReg= Mapa.getRegioes();
+		for (int i = 0;i < AuxReg.size(); i++) {
+			System.out.print(AuxReg.get(i).getNome() + " - ");
+			for (int j = 0; j < AuxReg.get(i).getEstados().size();	j++) {
+				System.out.print(AuxReg.get(i).getEstados().get(j).getNome() + "(" + AuxReg.get(i).getEstados().get(j).getDominante().getCor() + "-" + AuxReg.get(i).getEstados().get(j).getQuantidade_de_Tropas()+")");				
+				if(j < AuxReg.get(i).getEstados().size()-1) {
+					System.out.print(", ");
+				}
+			}
+			System.out.println();
+		}
+	}
+	
+    public void distribuirTropas() throws Exception{
+    	ArrayList<Regiao> AuxReg= Mapa.getRegioes();    	
+        for (int i = 0; i < Jogadores.size();i++){
+        	
+            System.out.println("Jogador " + (i+1) + " cor " + Jogadores.get(i).getCor() + ": Tem " + (int)Math.ceil(Jogadores.get(i).getQuantidadeTerritorios()/2.0) + " tropas para distribuir:");
+            boolean check = false;
+            do {
+            	Scanner scan = new Scanner(System.in);
+            	String[] Escolha = (scan.nextLine()).split("-");
+            	System.out.println(Escolha[0] + " " + Escolha[1]);
+            	
+            	try {
+            		Estado es = Mapa.getEstado(scan.toString());
+            		if(es.getDominante().equals(Jogadores.get(i).getCor())) {
+            			
+            		}
+            	} catch (Exception e) {
+            		System.out.println("Tente novamente: " + e);
+            	}
+            	
+            	
+            } while (check);
+            
+            
         }
+    }
         
 
 }
