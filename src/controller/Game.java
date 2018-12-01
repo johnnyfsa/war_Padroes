@@ -165,33 +165,43 @@ public class Game {
 		}
 	}
 	
-    public void distribuirTropas() throws Exception{
+	
+    public void distribuirTropas(Scanner scan) throws Exception{
     	ArrayList<Regiao> AuxReg= Mapa.getRegioes();    	
         for (int i = 0; i < Jogadores.size();i++){
-        	
-            System.out.println("Jogador " + (i+1) + " cor " + Jogadores.get(i).getCor() + ": Tem " + (int)Math.ceil(Jogadores.get(i).getQuantidadeTerritorios()/2.0) + " tropas para distribuir:");
-            boolean check = false;
-            do {
-            	Scanner scan = new Scanner(System.in);
-            	String[] Escolha = (scan.nextLine()).split("-");
-            	System.out.println(Escolha[0] + " " + Escolha[1]);
-            	
-            	try {
-            		Estado es = Mapa.getEstado(scan.toString());
-            		if(es.getDominante().equals(Jogadores.get(i).getCor())) {
-            			
+        	Jogador jogadorAux = Jogadores.get(i);
+        	int tropas_disponiveis = (int)Math.ceil(Jogadores.get(i).getQuantidadeTerritorios()/2.0);
+            System.out.println("Jogador " + (i+1) + " cor " + Jogadores.get(i).getCor() + ": Tem " + tropas_disponiveis + " tropas para distribuir:");
+            	while(tropas_disponiveis>0) 
+            	{
+            		String auxEstado = scan.next();
+            		int auxTropas = scan.nextInt();
+            		if(auxTropas<=tropas_disponiveis) 
+            		{
+            			for(int j=0;j<AuxReg.size();j++) 
+            			{
+            				for(int k=0;k<AuxReg.get(j).getEstados().size();k++) 
+            				{
+            					Estado CurrentState = AuxReg.get(j).getEstados().get(k);
+            					if(CurrentState.getNome().equals(auxEstado) && CurrentState.getDominante().equals(jogadorAux)) 
+            					{
+            						int tropas_atuais= CurrentState.getQuantidade_de_Tropas();
+            						CurrentState.setQuantidade_de_Tropas(tropas_atuais+auxTropas);
+            						tropas_disponiveis = tropas_disponiveis-auxTropas;
+            						break;
+            					}
+            				}
+            			}
             		}
-            	} catch (Exception e) {
-            		System.out.println("Tente novamente: " + e);
+            		else 
+            		{
+            			System.out.println("O jogador não possui "+ auxTropas + " tropas disponiveis");
+            			i--;
+            			break;
+            		}
+            		
             	}
-            	
-            	
-            } while (check);
-            
-            
         }
     }
-        
-
 }
 
