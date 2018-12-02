@@ -8,6 +8,11 @@ public class Estado {
 	private int Quantidade_de_Tropas;
 	private ArrayList<String> Vizinhos;
 	
+	
+	public void addTropas(int quantidade) {
+		Quantidade_de_Tropas += quantidade;
+	}
+	
 	public Estado(String nome) {
 		Nome = nome;
 		Vizinhos = new ArrayList<String>();

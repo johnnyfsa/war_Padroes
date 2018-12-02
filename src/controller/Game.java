@@ -11,7 +11,7 @@ import model.*;
 
 public class Game {
 	
-	private Tabuleiro Mapa;	
+	public Tabuleiro Mapa;	
 	private ArrayList<Jogador> Jogadores = new ArrayList<Jogador>();
 	private ArrayList<Carta> Baralho = new ArrayList<Carta>();
 	
@@ -165,6 +165,64 @@ public class Game {
 		}
 	}
 	
+	public void rodadaInicial() throws Exception {
+		ArrayList<Regiao> AuxReg= Mapa.getRegioes();
+		for (int i = 0; i < Jogadores.size(); i++) {
+			
+			inicioDeTurno(Jogadores.get(i));
+		}
+	}
+	
+	public void inicioDeTurno(Jogador jogador) throws Exception {
+		Scanner scan = new Scanner(System.in);
+		int tropasDisponiveis = (int)Math.ceil(jogador.getQuantidadeTerritorios()/2.0);		
+		boolean check = false;		
+		String Escolhas[];
+		Object n[];
+//		Checando entradas
+		do {
+			check = false;
+			System.out.println("Jogador de cor " + jogador.getCor() + ": Tem " + tropasDisponiveis + " tropas para distribuir:");
+			Escolhas = scan.nextLine().replaceAll("\\s", "").split("-|\\,");
+			n = new Object[Escolhas.length];
+			int[] tropas;
+			int maxTrops = 0;
+			for (int i = 0; i < Escolhas.length;i += 2) {
+				
+				System.out.println(Escolhas[i] + " " + Escolhas[i+1]);
+				maxTrops += Integer.parseInt(Escolhas[i+1]);
+				Estado Aux = Mapa.getEstado(Escolhas[i]);
+				System.out.println(Mapa.getEstado(Escolhas[i]).getDominante().getCor() + " - " + jogador.getCor());
+				if (!(Mapa.getEstado(Escolhas[i]).getDominante().equals(jogador))) {
+					System.out.println("Estado " + Aux.getNome() +" nao pertence a voce! Escolha novamente");
+					check = true;
+					break;
+				}
+				
+				n[i] = Aux;
+				n[i+1] = Escolhas[i+1];
+				
+			}
+			if (maxTrops > tropasDisponiveis) {
+				System.out.println("Quantidade de tropas excede as disponiveis. Escolha novamente");
+				check = true;
+			}
+			
+			
+		} while (check);	
+		
+		for (int i = 0; i <  n.length; i+= 2) {
+			Estado EstadoAux = (Estado)n[i];
+			int tropasAux = Integer.parseInt((String) n[i+1]);
+			EstadoAux.addTropas(tropasAux);
+		}
+		
+		System.out.println("Fim do turno do jogardor " + jogador.getCor());
+		
+		
+	
+	}
+	
 	
     public void distribuirTropas(Scanner scan) throws Exception{
     	ArrayList<Regiao> AuxReg= Mapa.getRegioes();    	
@@ -195,7 +253,7 @@ public class Game {
             		}
             		else 
             		{
-            			System.out.println("O jogador não possui "+ auxTropas + " tropas disponiveis");
+            			System.out.println("O jogador nao possui "+ auxTropas + " tropas disponiveis");
             			i--;
             			break;
             		}
