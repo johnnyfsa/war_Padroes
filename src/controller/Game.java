@@ -176,10 +176,53 @@ public class Game {
 		}	
 
 		System.out.println("--------------------------------------------------------------" +
-		"FIM DAS TELAS DE INICIALIZAÇÃO DO JOGO" +
+		"FIM DAS TELAS DE INICIALIZAï¿½ï¿½O DO JOGO" +
 		"--------------------------------------------------------------");
 	}
 	
+	public void mover_tropas(String Origem, String Destino, int numTropas, ArrayList<Estado> Recebeu) 
+	{
+		try {
+			Estado Orign = Mapa.getEstado(Origem);
+			Estado Dstny = Mapa.getEstado(Destino);
+			
+			 if(!Recebeu.isEmpty()) 
+			 {
+				 for(int i=0;i<Recebeu.size();i++) 
+					{
+						if(Recebeu.contains(Orign)) 
+						{
+							System.out.println("Esse Estado acabou de receber tropas, ele nÃ£o pode ter tropas removidas");
+							return;
+						}
+					} 
+			 }
+			
+			if(Orign.getDominante().equals(Dstny.getDominante())) 
+			{
+				if(numTropas>=Orign.getQuantidade_de_Tropas()) 
+				{
+					System.out.println("Nope, it's chuck testa");
+				}
+				else 
+				{
+					if(Orign.fazFronteiraCom(Dstny.getNome())) 
+					{
+						Orign.setQuantidade_de_Tropas(Orign.getQuantidade_de_Tropas()-numTropas);
+						Dstny.addTropas(numTropas);
+						Recebeu.add(Dstny);
+					}
+					else 
+					{
+						System.out.println("Nao vai dar, n");
+					}
+				}
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 	public void atacar(Estado atk, Estado def) 
 	{
 		Random rand = new Random();
@@ -252,6 +295,16 @@ public class Game {
 				atacar(offense,deffense);
 				break;
 			case 2:
+				System.out.println("Indique Origem, Destino e NÃºmero de tropas a ser movidas:");
+				ArrayList<Estado> Recebeu = new ArrayList<Estado>();
+				while(scan.hasNext()) 
+				{
+					String Origem = scan.next();
+					String Destino = scan.next();
+					int numTropas = scan.nextInt();
+					mover_tropas(Origem,Destino,numTropas,Recebeu);
+				}
+				scan.close();
 				break;
 			case 3:
 				continue Jogador_loop;
