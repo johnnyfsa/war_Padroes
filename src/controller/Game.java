@@ -4,6 +4,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Random;
 import java.util.Scanner;
 
 import javax.print.attribute.standard.PrinterMakeAndModel;
@@ -177,19 +178,35 @@ public class Game {
 	
 	public void atacar(Estado atk, Estado def) 
 	{
+		Random rand = new Random();
 		if(atk.fazFronteiraCom(def.getNome())==true) 
 		{
 			if(atk.getQuantidade_de_Tropas()>3) 
 			{
 				System.out.println("Ataque Usando 3 Dados");
+				int dados_atk[]= {0,0,0};
+				for(int i=0;i<dados_atk.length;i++) 
+				{
+					dados_atk[i]=rand.nextInt(6)+1;
+					
+				}
 			}
 			else if(atk.getQuantidade_de_Tropas()==3) 
 			{
 				System.out.println("Ataque Usando 2 Dados ");
+				int dados_atk[]= {0,0};
+				
+				for(int i=0;i<dados_atk.length;i++) 
+				{
+					dados_atk[i]=rand.nextInt(6)+1;
+					
+				}
 			}
 			else if(atk.getQuantidade_de_Tropas()==2) 
 			{
 				System.out.println("Ataque usando 1 Dado");
+				int dados_atk=rand.nextInt(6)+1;
+				
 			}
 			else 
 			{
