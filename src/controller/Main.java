@@ -30,7 +30,7 @@ public class Main {
                 
                 
                 Jogo.distribuirEstados();
-                Jogo.printMapa();
+//                Jogo.printMapa();
                 //Jogo.distribuirTropas(scan);
                 Jogo.rodadaInicial();
                 Jogo.printMapa();

@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Scanner;
 
+import javax.print.attribute.standard.PrinterMakeAndModel;
+
 import model.*;
 
 
@@ -168,7 +170,7 @@ public class Game {
 	public void rodadaInicial() throws Exception {
 		//ArrayList<Regiao> AuxReg= Mapa.getRegioes();	
 		for (int i = 0; i < Jogadores.size(); i++) {
-			
+			printMapa();
 			inicioDeTurno(Jogadores.get(i));
 		}
 	}
@@ -278,7 +280,7 @@ public class Game {
 			EstadoAux.addTropas(tropasAux);
 		}
 		
-		System.out.println("Fim da distribuição de tropas do jogardor " + jogador.getCor());
+		System.out.println("Fim da distribuicao de tropas do jogador " + jogador.getCor());
 		
 		
 	
