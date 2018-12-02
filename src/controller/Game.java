@@ -177,22 +177,30 @@ public class Game {
 	
 	public void atacar(Estado atk, Estado def) 
 	{
-		if(atk.getQuantidade_de_Tropas()>3) 
+		if(atk.fazFronteiraCom(def.getNome())==true) 
 		{
-			System.out.println("Ataque Usando 3 Dados");
-		}
-		else if(atk.getQuantidade_de_Tropas()==3) 
-		{
-			System.out.println("Ataque Usando 2 Dados ");
-		}
-		else if(atk.getQuantidade_de_Tropas()==2) 
-		{
-			System.out.println("Ataque usando 1 Dado");
+			if(atk.getQuantidade_de_Tropas()>3) 
+			{
+				System.out.println("Ataque Usando 3 Dados");
+			}
+			else if(atk.getQuantidade_de_Tropas()==3) 
+			{
+				System.out.println("Ataque Usando 2 Dados ");
+			}
+			else if(atk.getQuantidade_de_Tropas()==2) 
+			{
+				System.out.println("Ataque usando 1 Dado");
+			}
+			else 
+			{
+				System.out.println("Não há tropas sificientes para atacar");
+			}	
 		}
 		else 
 		{
-			System.out.println("Não há tropas sificientes para atacar");
+			System.out.println("Nao faz fronteira");
 		}
+		
 	}
 	
 	public void rodadaComum() throws Exception
