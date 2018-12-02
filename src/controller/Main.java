@@ -31,9 +31,15 @@ public class Main {
                 
                 Jogo.distribuirEstados();
                 Jogo.printMapa();
-//                Jogo.distribuirTropas(scan);
+                //Jogo.distribuirTropas(scan);
                 Jogo.rodadaInicial();
                 Jogo.printMapa();
+                boolean win_condition = true;
+                while(win_condition) 
+                {
+                	Jogo.rodadaComum();
+                	win_condition=false;
+                }
                 scan.close();
                 
 	}

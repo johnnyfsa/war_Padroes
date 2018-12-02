@@ -166,10 +166,71 @@ public class Game {
 	}
 	
 	public void rodadaInicial() throws Exception {
-		ArrayList<Regiao> AuxReg= Mapa.getRegioes();
+		//ArrayList<Regiao> AuxReg= Mapa.getRegioes();	
 		for (int i = 0; i < Jogadores.size(); i++) {
 			
 			inicioDeTurno(Jogadores.get(i));
+		}
+	}
+	
+	public void atacar(Estado atk, Estado def) 
+	{
+		if(atk.getQuantidade_de_Tropas()>3) 
+		{
+			System.out.println("Ataque Usando 3 Dados");
+		}
+		else if(atk.getQuantidade_de_Tropas()==3) 
+		{
+			System.out.println("Ataque Usando 2 Dados ");
+		}
+		else if(atk.getQuantidade_de_Tropas()==2) 
+		{
+			System.out.println("Ataque usando 1 Dado");
+		}
+		else 
+		{
+			System.out.println("Não há tropas sificientes para atacar");
+		}
+	}
+	
+	public void rodadaComum() throws Exception
+	{
+		Scanner scan = new Scanner(System.in).useDelimiter("\\r\n|\\s|\\-");
+		Jogador_loop:
+		for (int i = 0; i < Jogadores.size(); i++) {
+			
+			inicioDeTurno(Jogadores.get(i));
+			/*if(Jogadores.get(i).getMao().length>=3) 
+			{
+				System.out.println("Deseja Trocar Cartas?");
+				//trocar
+			}*/
+			System.out.println("Selecione o que deseja fazer: \r\n 1. Atacar"
+					+ "\r\n 2. Mover Tropas"
+					+ "\r\n 3.Encerrar");
+			int escolha = scan.nextInt();
+			switch(escolha) 
+			{
+			case 1:
+				System.out.println("Indique Origem e Destino do Ataque:");
+				String atk = scan.next();
+				String def = scan.next();
+				//System.out.println(atk+" "+def);
+				Estado offense = Mapa.getEstado(atk);
+				Estado deffense = Mapa.getEstado(def);
+				atacar(offense,deffense);
+				break;
+			case 2:
+				break;
+			case 3:
+				continue Jogador_loop;
+				//break;
+			default:
+				System.out.println("esta nao e uma opção valida");
+			}
+			//ataque
+			//movimentação de tropas
+			//fim do turno
 		}
 	}
 	
@@ -189,10 +250,10 @@ public class Game {
 			int maxTrops = 0;
 			for (int i = 0; i < Escolhas.length;i += 2) {
 				
-				System.out.println(Escolhas[i] + " " + Escolhas[i+1]);
+				//System.out.println(Escolhas[i] + " " + Escolhas[i+1]);
 				maxTrops += Integer.parseInt(Escolhas[i+1]);
 				Estado Aux = Mapa.getEstado(Escolhas[i]);
-				System.out.println(Mapa.getEstado(Escolhas[i]).getDominante().getCor() + " - " + jogador.getCor());
+				//System.out.println(Mapa.getEstado(Escolhas[i]).getDominante().getCor() + " - " + jogador.getCor());
 				if (!(Mapa.getEstado(Escolhas[i]).getDominante().equals(jogador))) {
 					System.out.println("Estado " + Aux.getNome() +" nao pertence a voce! Escolha novamente");
 					check = true;
@@ -217,7 +278,7 @@ public class Game {
 			EstadoAux.addTropas(tropasAux);
 		}
 		
-		System.out.println("Fim do turno do jogardor " + jogador.getCor());
+		System.out.println("Fim da distribuição de tropas do jogardor " + jogador.getCor());
 		
 		
 	
