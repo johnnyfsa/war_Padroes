@@ -173,7 +173,11 @@ public class Game {
 		for (int i = 0; i < Jogadores.size(); i++) {
 			printMapa();
 			inicioDeTurno(Jogadores.get(i));
-		}
+		}	
+
+		System.out.println("--------------------------------------------------------------" +
+		"FIM DAS TELAS DE INICIALIZAÇÃO DO JOGO" +
+		"--------------------------------------------------------------");
 	}
 	
 	public void atacar(Estado atk, Estado def) 
