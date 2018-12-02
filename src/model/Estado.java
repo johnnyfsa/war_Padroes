@@ -48,5 +48,16 @@ public class Estado {
 	public void addVizinhos(String vizinho) {
 		Vizinhos.add(vizinho);
 	}
+	public boolean verificaVizinho(Estado viz) 
+	{
+		for(int i=0;i<Vizinhos.size();i++) 
+		{
+			if(Vizinhos.get(i).equals(viz)) 
+			{
+				return true;
+			}
+		}
+		return false;
+	}
 
 }
