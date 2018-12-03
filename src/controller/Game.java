@@ -213,49 +213,7 @@ public class Game {
 			e.printStackTrace();
 		}
 	}
-	public void atacar(Estado atk, Estado def) 
-	{
-		Random rand = new Random();
-		if(atk.fazFronteiraCom(def.getNome())==true) 
-		{
-			if(atk.getQuantidade_de_Tropas()>3) 
-			{
-				System.out.println("Ataque Usando 3 Dados");
-				int dados_atk[]= {0,0,0};
-				for(int i=0;i<dados_atk.length;i++) 
-				{
-					dados_atk[i]=rand.nextInt(6)+1;
-					
-				}
-			}
-			else if(atk.getQuantidade_de_Tropas()==3) 
-			{
-				System.out.println("Ataque Usando 2 Dados ");
-				int dados_atk[]= {0,0};
-				
-				for(int i=0;i<dados_atk.length;i++) 
-				{
-					dados_atk[i]=rand.nextInt(6)+1;
-					
-				}
-			}
-			else if(atk.getQuantidade_de_Tropas()==2) 
-			{
-				System.out.println("Ataque usando 1 Dado");
-				int dados_atk=rand.nextInt(6)+1;
-				
-			}
-			else 
-			{
-				System.out.println("Não há tropas sificientes para atacar");
-			}	
-		}
-		else 
-		{
-			System.out.println("Nao faz fronteira");
-		}
-		
-	}
+	
 	
 	public void rodadaComum() throws Exception
 	{
@@ -282,7 +240,7 @@ public class Game {
 				//System.out.println(atk+" "+def);
 				Estado offense = Mapa.getEstado(atk);
 				Estado deffense = Mapa.getEstado(def);
-				atacar(offense,deffense);
+				
 				break;
 			case 2:
 				System.out.println("Indique Origem, Destino e Número de tropas a ser movidas:");
@@ -355,45 +313,6 @@ public class Game {
 		
 		
 	
-	}
-	
-	
-    public void distribuirTropas(Scanner scan) throws Exception{
-    	ArrayList<Regiao> AuxReg= Mapa.getRegioes();    	
-        for (int i = 0; i < Jogadores.size();i++){
-        	Jogador jogadorAux = Jogadores.get(i);
-        	int tropas_disponiveis = (int)Math.ceil(Jogadores.get(i).getQuantidadeTerritorios()/2.0);
-            System.out.println("Jogador " + (i+1) + " cor " + Jogadores.get(i).getCor() + ": Tem " + tropas_disponiveis + " tropas para distribuir:");
-            	while(tropas_disponiveis>0) 
-            	{
-            		String auxEstado = scan.next();
-            		int auxTropas = scan.nextInt();
-            		if(auxTropas<=tropas_disponiveis) 
-            		{
-            			for(int j=0;j<AuxReg.size();j++) 
-            			{
-            				for(int k=0;k<AuxReg.get(j).getEstados().size();k++) 
-            				{
-            					Estado CurrentState = AuxReg.get(j).getEstados().get(k);
-            					if(CurrentState.getNome().equals(auxEstado) && CurrentState.getDominante().equals(jogadorAux)) 
-            					{
-            						int tropas_atuais= CurrentState.getQuantidade_de_Tropas();
-            						CurrentState.setQuantidade_de_Tropas(tropas_atuais+auxTropas);
-            						tropas_disponiveis = tropas_disponiveis-auxTropas;
-            						break;
-            					}
-            				}
-            			}
-            		}
-            		else 
-            		{
-            			System.out.println("O jogador nao possui "+ auxTropas + " tropas disponiveis");
-            			i--;
-            			break;
-            		}
-            		
-            	}
-        }
-    }
+	}	
 }
 
