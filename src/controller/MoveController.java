@@ -54,7 +54,7 @@ public class MoveController {
 		{
 			if(numTropas>=Origem.getQuantidade_de_Tropas()) 
 			{
-				System.out.println("Nope, it's chuck testa");
+				System.out.println("Número Inválido de tropas");
 			}
 			else 
 			{
@@ -66,11 +66,11 @@ public class MoveController {
 				}
 				else 
 				{
-					System.out.println("Nao vai dar, n");
+					System.out.println("Os estados solicitados não fazem fronteira");
 				}
 			}
 		}
-		System.out.println("Deseja mover tropas novamente?\r\n1 - Sim\r\n2 - N�o");
+		System.out.println("Deseja mover tropas novamente?\r\n1 - Sim\r\n2 - Não");
 		int escolha = scan.nextInt();
 		if (escolha == 1)
 		this.moveTropas();
