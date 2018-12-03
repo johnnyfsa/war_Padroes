@@ -167,29 +167,50 @@ public class Game {
 		"--------------------------------------------------------------");
 	}
 	
+	public void trocarCartas(Jogador player) 
+	{
+		
+	}
+	private void exibirMao(Jogador player) 
+	{
+		for(int i=0;i<player.getMao().size();i++) 
+		{
+			if(player.getMao().get(i).getTipo().equals("Carta Estado")) 
+			{
+				CartaEstado aux = (CartaEstado) player.getMao().get(i);
+				System.out.println(aux.getForma().getTipoForma());
+			}
+		}
+	}
 	
 	public void rodadaComum() throws Exception
 	{
 		
 		Scanner scan = new Scanner(System.in).useDelimiter("\\r\n|\\s|\\-");
-		Jogador_loop:
+		//Jogador_loop
 		for (int i = Jogadores.size()-1; i >= 0; i--) {
-//			Calcular tropas extras e associar na variavel
+			//Calcular tropas extras e associar na variavel
 			int tropasExtras = 0;
 			int territorioInicial = Jogadores.get(i).getQuantidadeTerritorios();
 			inicioDeTurno(Jogadores.get(i), tropasExtras);
-			/*if(Jogadores.get(i).getMao().length>=3) 
+			if(Jogadores.get(i).getMao().size()>=3) 
 			{
 				System.out.println("Deseja Trocar Cartas?");
 				//trocar
-			}*/
+			}
+			else 
+			{
+				System.out.println("Não tem cartas pra trocar");
+			}
 			System.out.println("Jogador da vez: " + Jogadores.get(i).getCor() + ": Selecione o que deseja fazer: \r\n1 - Atacar\r\n2 - Mover Tropas\r\n3 - Encerrar");						
 			int escolha = scan.nextInt();
 			
+			//ataque
 			if(escolha == 1) {
 				Combate.combateTropas(Jogadores.get(i), Mapa);				
 				escolha = 2;
 			}
+			//movimentação de tropas
 			if(escolha == 2) {
 				Mover.moveTropas();			
 			}
@@ -201,8 +222,8 @@ public class Game {
 			//checar se jogador ganhou territorio, pegar cartar, encerrar turno
 			
 			
-			//ataque
-			//movimentação de tropas
+			
+			
 			//fim do turno
 		}
 	}

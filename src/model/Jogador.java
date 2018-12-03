@@ -1,10 +1,17 @@
 package model;
 
+import java.util.ArrayList;
+
 public class Jogador {
-	private Carta Mao[];
+	private ArrayList<Carta> Mao;
 	private String Cor;
 	private int Exercitos_Disponiveis;
     private int quantidadeTerritorios = 0;
+    
+    public Jogador() 
+    {
+    	Mao = new ArrayList<Carta>();
+    }
     
     public void adicionarTerritorios(){
         quantidadeTerritorios++;
@@ -18,11 +25,11 @@ public class Jogador {
         return quantidadeTerritorios;
     }
         
-	public Carta[] getMao() {
+	public ArrayList<Carta> getMao() {
 		return Mao;
 	}
 
-	public void setMao(Carta mao[]) {
+	public void setMao(ArrayList<Carta> mao) {
 		Mao = mao;
 	}
 
