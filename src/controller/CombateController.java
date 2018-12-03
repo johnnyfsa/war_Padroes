@@ -24,7 +24,7 @@ public class CombateController {
 	}
 	
 	public void combateTropas(Jogador jogador, Tabuleiro mapa) throws Exception {
-		
+		System.out.println("Modo Combate");
 		Scanner scan = new Scanner(System.in);
 		String[] Escolhas;
 		Estado origem, destino;
@@ -52,8 +52,7 @@ public class CombateController {
 		
 		ArrayList<Integer> dadosAtaque = new ArrayList<Integer>();					
 		ArrayList<Integer> dadosDefesa = new ArrayList<Integer>();
-		
-		
+				
 		for (int i = 0; i < tropasAtacantes;i++) {
 			Random rn = new Random();
 			dadosAtaque.add(rn.nextInt(6)+1);			
