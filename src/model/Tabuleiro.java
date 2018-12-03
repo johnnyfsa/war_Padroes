@@ -36,7 +36,7 @@ public class Tabuleiro {
 		} else {
 			for (int i=0;i<Regioes.size();i++) {				
 				for (int j = 0; j < Regioes.get(i).getEstados().size();j++) {
-					if (Regioes.get(i).getEstados().get(j).getNome().equals(nome)) {
+					if (Regioes.get(i).getEstados().get(j).getNome().equalsIgnoreCase(nome)) {
 						return Regioes.get(i).getEstados().get(j);
 					}
 				}
