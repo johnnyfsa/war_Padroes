@@ -28,7 +28,7 @@ public class CombateController {
 		Scanner scan = new Scanner(System.in);
 		String[] Escolhas;
 		Estado origem, destino;
-	
+		mapa.printMapa();
 		System.out.println("Jogador " + jogador.getCor() + ": Indique a origem do ataque e o destino do ataque");
 		Escolhas = scan.nextLine().replaceAll("\\s", "").split("-");
 		origem = mapa.getEstado(Escolhas[0]);
@@ -68,8 +68,7 @@ public class CombateController {
 		Collections.sort(dadosDefesa,Collections.reverseOrder());
 		
 		int combates = Math.min(dadosAtaque.size(), dadosDefesa.size());
-		
-		
+				
 		for (int i = 0; i < combates; i++) {
 			System.out.println("Luta " + (i+1) + ": Ataque: " + dadosAtaque.get(i) + " vs " + dadosDefesa.get(i) + " :Defesa");
 			if (dadosAtaque.get(i) <= dadosDefesa.get(i)) {
@@ -85,24 +84,34 @@ public class CombateController {
 		if (destino.getQuantidade_de_Tropas() == 0) {
 			System.out.println("Jogador " + jogador.getCor() + " ganhou o território e moveu uma tropa para " + destino.getNome());
 			destino.setDominante(jogador);
-			origem.addTropas(-1);
-			destino.setQuantidade_de_Tropas(1);
 			int move = 0;
-			if ((origem.getQuantidade_de_Tropas()-1) > 3) {
+			if ((origem.getQuantidade_de_Tropas()-1) >= 3) {
 				move = 3;				
 			} else {
 				move = (origem.getQuantidade_de_Tropas()-1);
-			}
-			System.out.println("Jogador " + jogador.getCor() + " pode transferir de 0 até " + move);
-//			deseja passar?
+			}			
+			boolean check = false;
+			do {
+				System.out.println("Quantas deseja passar? (Entre 1 e " + move + ")");
+				int escolha = scan.nextInt();
+				if (escolha >= 1 && escolha <= move) {
+					destino.addTropas(move);
+					origem.addTropas(-move);
+					check = false;
+				} else {
+					check = true;
+				}			
+			} while (check);
 		}
 					    
 		mapa.printMapa();	
 		
-		
+		System.out.println("Deseja atacar novamente?\r\n1 - Sim\r\n2 - Não");
+		int escolha = scan.nextInt();
+		if (escolha == 1)
+			combateTropas(jogador, mapa);		
 	}
 	
-	// recursao entra aqui
 	
 	
 }
