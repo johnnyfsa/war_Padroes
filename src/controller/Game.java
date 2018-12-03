@@ -14,7 +14,7 @@ import model.*;
 
 public class Game {
 	
-	public Tabuleiro Mapa;	
+	public Tabuleiro Mapa;
 	private ArrayList<Jogador> Jogadores = new ArrayList<Jogador>();
 	private ArrayList<Carta> Baralho = new ArrayList<Carta>();
 	
@@ -155,23 +155,13 @@ public class Game {
 	}
       
 	public void printMapa() {
-		ArrayList<Regiao> AuxReg= Mapa.getRegioes();
-		for (int i = 0;i < AuxReg.size(); i++) {
-			System.out.print(AuxReg.get(i).getNome() + " - ");
-			for (int j = 0; j < AuxReg.get(i).getEstados().size();	j++) {
-				System.out.print(AuxReg.get(i).getEstados().get(j).getNome() + "(" + AuxReg.get(i).getEstados().get(j).getDominante().getCor() + "-" + AuxReg.get(i).getEstados().get(j).getQuantidade_de_Tropas()+")");				
-				if(j < AuxReg.get(i).getEstados().size()-1) {
-					System.out.print(", ");
-				}
-			}
-			System.out.println();
-		}
+		Mapa.printMapa();
 	}
 	
 	public void rodadaInicial() throws Exception {
 		//ArrayList<Regiao> AuxReg= Mapa.getRegioes();	
 		for (int i = 0; i < Jogadores.size(); i++) {
-			printMapa();
+			Mapa.printMapa();
 			inicioDeTurno(Jogadores.get(i));
 		}	
 

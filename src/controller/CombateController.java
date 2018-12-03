@@ -34,19 +34,18 @@ public class CombateController {
 		origem = mapa.getEstado(Escolhas[0]);
 		destino = mapa.getEstado(Escolhas[1]);
 		if (!(origem.getDominante().equals(jogador)) || destino.getDominante().equals(jogador)) {				
-			System.out.println("Opcao de estado de origem ou destino invalidas.");
-			
+			System.out.println("Opcao de estado de origem ou destino invalidas.");			
 			return;
 		}
 		if (!(origem.fazFronteiraCom(destino.getNome()))) {
-			System.out.println("Estados devem fazer fronteira!");
-			
+			System.out.println("Estados devem fazer fronteira!");			
 			return;
 		}			
-	
+		if (origem.getQuantidade_de_Tropas() == 1) {
+			System.out.println("Eh necessario mais tropas para atacar!");
+			return;
+		}		
 //			Entra aqui lógica para ataque!
-		
-		System.out.println("Veio");
 		
 		int tropasAtacantes = setTropas(origem.getQuantidade_de_Tropas()-1);
 		int tropasDefensoras = setTropas(destino.getQuantidade_de_Tropas());
@@ -89,9 +88,8 @@ public class CombateController {
 			destino.setQuantidade_de_Tropas(1);				
 			System.out.println("Jogador " + jogador.getCor() + " pode transferir de 0 até " + (origem.getQuantidade_de_Tropas()-1));						
 		}
-				
-//	    Printar mapa
-			
+					    
+		mapa.printMapa();	
 		
 		
 	}
