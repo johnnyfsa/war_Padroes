@@ -71,22 +71,30 @@ public class CombateController {
 		
 		
 		for (int i = 0; i < combates; i++) {
-			System.out.println("Luta " + (i+1) + ": Ataque: " + dadosAtaque.get(i) + " vs " + dadosDefesa.get(i) + " Defesa");
+			System.out.println("Luta " + (i+1) + ": Ataque: " + dadosAtaque.get(i) + " vs " + dadosDefesa.get(i) + " :Defesa");
 			if (dadosAtaque.get(i) <= dadosDefesa.get(i)) {
 				System.out.println("Defesa venceu a luta " + (i+1));					
-				destino.addTropas(-1);
+				origem.addTropas(-1);
 			} else {
-				System.out.println("Ataque venceu a luta " + (i+1));					
+				System.out.println("Ataque venceu a luta " + (i+1));
+				destino.addTropas(-1);
 			}
 			System.out.println("------------------------------");
 		}
 		
 		if (destino.getQuantidade_de_Tropas() == 0) {
-			System.out.println("Jogador " + jogador.getCor() + " ganhou o territorio e moveu uma tropa para " + destino.getNome());
+			System.out.println("Jogador " + jogador.getCor() + " ganhou o território e moveu uma tropa para " + destino.getNome());
 			destino.setDominante(jogador);
 			origem.addTropas(-1);
-			destino.setQuantidade_de_Tropas(1);				
-			System.out.println("Jogador " + jogador.getCor() + " pode transferir de 0 até " + (origem.getQuantidade_de_Tropas()-1));						
+			destino.setQuantidade_de_Tropas(1);
+			int move = 0;
+			if ((origem.getQuantidade_de_Tropas()-1) > 3) {
+				move = 3;				
+			} else {
+				move = (origem.getQuantidade_de_Tropas()-1);
+			}
+			System.out.println("Jogador " + jogador.getCor() + " pode transferir de 0 até " + move);
+//			deseja passar?
 		}
 					    
 		mapa.printMapa();	
@@ -94,6 +102,7 @@ public class CombateController {
 		
 	}
 	
+	// recursao entra aqui
 	
 	
 }

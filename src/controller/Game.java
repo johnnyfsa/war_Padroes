@@ -15,6 +15,8 @@ import model.*;
 public class Game {
 	
 	public Tabuleiro Mapa;
+	private MoveController Mover = new MoveController(Mapa);
+	private CombateController Combate = new CombateController();
 	private ArrayList<Jogador> Jogadores = new ArrayList<Jogador>();
 	private ArrayList<Carta> Baralho = new ArrayList<Carta>();
 	
@@ -104,30 +106,26 @@ public class Game {
 		{
 			Baralho.add(new Coringa());
 		}*/
+		Collections.shuffle(Baralho);
 	}
 	//testes
-	
-        
-        public void embaralhar(){
-            Collections.shuffle(Baralho);
-        }
-        
-        public void distribuirEstados(){
-            int jogadorIndex;
-            for (int i = 0; i < Baralho.size();i++){                
-                jogadorIndex = i%Jogadores.size();
-                if(!(Baralho.get(i).getTipo().equals("Coringa"))){
-                    ((CartaEstado)Baralho.get(i)).getEstado().setDominante(Jogadores.get(jogadorIndex));
-                    ((CartaEstado)Baralho.get(i)).getEstado().setQuantidade_de_Tropas(1);
-                    Jogadores.get(jogadorIndex).adicionarTerritorios();
-                }
+	    
+    public void distribuirEstados(){
+        int jogadorIndex;
+        for (int i = 0; i < Baralho.size();i++){                
+            jogadorIndex = i%Jogadores.size();
+            if(!(Baralho.get(i).getTipo().equals("Coringa"))){
+                ((CartaEstado)Baralho.get(i)).getEstado().setDominante(Jogadores.get(jogadorIndex));
+                ((CartaEstado)Baralho.get(i)).getEstado().setQuantidade_de_Tropas(1);
+                Jogadores.get(jogadorIndex).adicionarTerritorios();
             }
         }
-        
-        public int getNumeroJogadores(){
-            return Jogadores.size();
-        }
-	//printa o baralho
+    }
+    
+    public int getNumeroJogadores(){
+        return Jogadores.size();
+    }
+//printa o baralho
 	public void printaBaralho()
 	{
 		for(int i=0;i<Baralho.size();i++) 
@@ -166,50 +164,43 @@ public class Game {
 		}	
 
 		System.out.println("--------------------------------------------------------------" +
-		"FIM DAS TELAS DE INICIALIZAï¿½ï¿½O DO JOGO" +
+		"FIM DAS TELAS DE INICIALIZACAO DO JOGO" +
 		"--------------------------------------------------------------");
 	}
 	
 	
-	
 	public void rodadaComum() throws Exception
 	{
+		
 		Scanner scan = new Scanner(System.in).useDelimiter("\\r\n|\\s|\\-");
 		Jogador_loop:
-		for (int i = 0; i < Jogadores.size(); i++) {
-			
+		for (int i = Jogadores.size()-1; i >= 0; i--) {
+			int territorioInicial = Jogadores.get(i).getQuantidadeTerritorios();
 			inicioDeTurno(Jogadores.get(i));
 			/*if(Jogadores.get(i).getMao().length>=3) 
 			{
 				System.out.println("Deseja Trocar Cartas?");
 				//trocar
 			}*/
-			System.out.println("Selecione o que deseja fazer: \r\n 1. Atacar"
-					+ "\r\n 2. Mover Tropas"
-					+ "\r\n 3.Encerrar");
+			System.out.println("Jogador da vez: " + Jogadores.get(i).getCor() + ": Selecione o que deseja fazer: \r\n1 - Atacar\r\n2 - Mover Tropas\r\n3 - Encerrar");						
 			int escolha = scan.nextInt();
-			switch(escolha) 
-			{
-			case 1:
-				System.out.println("Indique Origem e Destino do Ataque:");
-				String atk = scan.next();
-				String def = scan.next();
-				//System.out.println(atk+" "+def);
-				Estado offense = Mapa.getEstado(atk);
-				Estado deffense = Mapa.getEstado(def);
-				
-				break;
-			case 2:
-				System.out.println("Indique Origem, Destino e NÃºmero de tropas a ser movidas:");
-				MoveController Move = new MoveController(Mapa);
-				Move.moveTropas();
-				break;
-			case 3:
-				continue Jogador_loop;
-				//break;
-			default:
-				System.out.println("esta nao e uma opÃ§Ã£o valida");
+			
+			if(escolha == 1) {
+				Combate.combateTropas(Jogadores.get(i), Mapa);				
+				escolha = 2;
 			}
+			if(escolha == 2) {
+				System.out.println("Entrou no move tropas");
+				Mover.moveTropas();			
+			}
+			
+			if (Jogadores.get(i).getQuantidadeTerritorios() > territorioInicial) {
+//				Ganha cartas
+				
+			}
+			//checar se jogador ganhou territorio, pegar cartar, encerrar turno
+			
+			
 			//ataque
 			//movimentaÃ§Ã£o de tropas
 			//fim do turno
@@ -237,7 +228,7 @@ public class Game {
 				Estado Aux = Mapa.getEstado(Escolhas[i]);
 				//System.out.println(Mapa.getEstado(Escolhas[i]).getDominante().getCor() + " - " + jogador.getCor());
 				if (!(Mapa.getEstado(Escolhas[i]).getDominante().equals(jogador))) {
-					System.out.println("Estado " + Aux.getNome() +" nao pertence a voce! Escolha novamente");
+					System.out.println("Estado " + Aux.getNome() +" não pertence a você! Escolha novamente");
 					check = true;
 					break;
 				}
@@ -247,10 +238,12 @@ public class Game {
 				
 			}
 			if (maxTrops > tropasDisponiveis) {
-				System.out.println("Quantidade de tropas excede as disponiveis. Escolha novamente");
+				System.out.println("Quantidade de tropas excede as disponíveis. Escolha novamente");
 				check = true;
-			}
-			
+			} else if(maxTrops < tropasDisponiveis) {
+				System.out.println("Quantidade de tropas menor que as disponíveis. Escolha novamente");
+				check = true;
+			}			
 			
 		} while (check);	
 		
@@ -260,10 +253,9 @@ public class Game {
 			EstadoAux.addTropas(tropasAux);
 		}
 		
-		System.out.println("Fim da distribuicao de tropas do jogador " + jogador.getCor());
+		System.out.println("Fim da distribuição de tropas do jogador " + jogador.getCor());
+		System.out.println("------------------------------------------------------------");
 		
-		
-	
 	}	
 }
 
