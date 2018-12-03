@@ -297,13 +297,12 @@ public class Game {
 			case 2:
 				System.out.println("Indique Origem, Destino e Número de tropas a ser movidas:");
 				ArrayList<Estado> Recebeu = new ArrayList<Estado>();
-				while(scan.hasNext()) 
-				{
-					String Origem = scan.next();
-					String Destino = scan.next();
-					int numTropas = scan.nextInt();
-					mover_tropas(Origem,Destino,numTropas,Recebeu);
-				}
+				
+				String Origem = scan.next();
+				String Destino = scan.next();
+				int numTropas = scan.nextInt();
+				mover_tropas(Origem,Destino,numTropas,Recebeu);
+				
 				scan.close();
 				break;
 			case 3:
