@@ -159,7 +159,7 @@ public class Game {
 	public void rodadaInicial() throws Exception {
 		//ArrayList<Regiao> AuxReg= Mapa.getRegioes();	
 		for (int i = 0; i < Jogadores.size(); i++) {
-			inicioDeTurno(Jogadores.get(i));
+			inicioDeTurno(Jogadores.get(i),0);
 		}	
 
 		System.out.println("--------------------------------------------------------------" +
@@ -174,8 +174,10 @@ public class Game {
 		Scanner scan = new Scanner(System.in).useDelimiter("\\r\n|\\s|\\-");
 		Jogador_loop:
 		for (int i = Jogadores.size()-1; i >= 0; i--) {
+//			Calcular tropas extras e associar na variavel
+			int tropasExtras = 0;
 			int territorioInicial = Jogadores.get(i).getQuantidadeTerritorios();
-			inicioDeTurno(Jogadores.get(i));
+			inicioDeTurno(Jogadores.get(i), tropasExtras);
 			/*if(Jogadores.get(i).getMao().length>=3) 
 			{
 				System.out.println("Deseja Trocar Cartas?");
@@ -205,9 +207,9 @@ public class Game {
 		}
 	}
 	
-	public void inicioDeTurno(Jogador jogador) throws Exception {
+	public void inicioDeTurno(Jogador jogador, int tropasExtras) throws Exception {
 		Scanner scan = new Scanner(System.in);
-		int tropasDisponiveis = (int)Math.ceil(jogador.getQuantidadeTerritorios()/2.0);		
+		int tropasDisponiveis = ((int)Math.ceil(jogador.getQuantidadeTerritorios()/2.0)) + tropasExtras;		
 		boolean check = false;		
 		String Escolhas[];
 		Object n[];		
