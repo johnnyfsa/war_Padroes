@@ -170,49 +170,6 @@ public class Game {
 		"--------------------------------------------------------------");
 	}
 	
-	public void mover_tropas(String Origem, String Destino, int numTropas, ArrayList<Estado> Recebeu) 
-	{
-		try {
-			Estado Orign = Mapa.getEstado(Origem);
-			Estado Dstny = Mapa.getEstado(Destino);
-			
-			 if(!Recebeu.isEmpty()) 
-			 {
-				 for(int i=0;i<Recebeu.size();i++) 
-					{
-						if(Recebeu.contains(Orign)) 
-						{
-							System.out.println("Esse Estado acabou de receber tropas, ele não pode ter tropas removidas");
-							return;
-						}
-					} 
-			 }
-			
-			if(Orign.getDominante().equals(Dstny.getDominante())) 
-			{
-				if(numTropas>=Orign.getQuantidade_de_Tropas()) 
-				{
-					System.out.println("Nope, it's chuck testa");
-				}
-				else 
-				{
-					if(Orign.fazFronteiraCom(Dstny.getNome())) 
-					{
-						Orign.setQuantidade_de_Tropas(Orign.getQuantidade_de_Tropas()-numTropas);
-						Dstny.addTropas(numTropas);
-						Recebeu.add(Dstny);
-					}
-					else 
-					{
-						System.out.println("Nao vai dar, n");
-					}
-				}
-			}
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
 	
 	
 	public void rodadaComum() throws Exception
@@ -244,14 +201,8 @@ public class Game {
 				break;
 			case 2:
 				System.out.println("Indique Origem, Destino e Número de tropas a ser movidas:");
-				ArrayList<Estado> Recebeu = new ArrayList<Estado>();
-				
-				String Origem = scan.next();
-				String Destino = scan.next();
-				int numTropas = scan.nextInt();
-				mover_tropas(Origem,Destino,numTropas,Recebeu);
-				
-				scan.close();
+				MoveController Move = new MoveController(Mapa);
+				Move.moveTropas();
 				break;
 			case 3:
 				continue Jogador_loop;
