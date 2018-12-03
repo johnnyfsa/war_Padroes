@@ -36,8 +36,7 @@ public class Main {
                 Jogo.distribuirEstados();
 //                Jogo.printMapa();
                 //Jogo.distribuirTropas(scan);
-                Jogo.rodadaInicial();
-                Jogo.printMapa();
+                Jogo.rodadaInicial();                
                 boolean win_condition = true;
                 while(win_condition) 
                 {

@@ -159,7 +159,6 @@ public class Game {
 	public void rodadaInicial() throws Exception {
 		//ArrayList<Regiao> AuxReg= Mapa.getRegioes();	
 		for (int i = 0; i < Jogadores.size(); i++) {
-			Mapa.printMapa();
 			inicioDeTurno(Jogadores.get(i));
 		}	
 
@@ -212,9 +211,10 @@ public class Game {
 		int tropasDisponiveis = (int)Math.ceil(jogador.getQuantidadeTerritorios()/2.0);		
 		boolean check = false;		
 		String Escolhas[];
-		Object n[];
+		Object n[];		
 //		Checando entradas
 		do {
+			printMapa();
 			check = false;
 			System.out.println("Jogador de cor " + jogador.getCor() + ": Tem " + tropasDisponiveis + " tropas para distribuir:");
 			Escolhas = scan.nextLine().replaceAll("\\s", "").split("-|\\,");
@@ -228,7 +228,7 @@ public class Game {
 				Estado Aux = Mapa.getEstado(Escolhas[i]);
 				//System.out.println(Mapa.getEstado(Escolhas[i]).getDominante().getCor() + " - " + jogador.getCor());
 				if (!(Mapa.getEstado(Escolhas[i]).getDominante().equals(jogador))) {
-					System.out.println("Estado " + Aux.getNome() +" n�o pertence a voc�! Escolha novamente");
+					System.out.println("Estado " + Aux.getNome() +" nao pertence a voce! Escolha novamente");
 					check = true;
 					break;
 				}
@@ -238,10 +238,10 @@ public class Game {
 				
 			}
 			if (maxTrops > tropasDisponiveis) {
-				System.out.println("Quantidade de tropas excede as dispon�veis. Escolha novamente");
+				System.out.println("Quantidade de tropas excede as disponiveis. Escolha novamente");
 				check = true;
 			} else if(maxTrops < tropasDisponiveis) {
-				System.out.println("Quantidade de tropas menor que as dispon�veis. Escolha novamente");
+				System.out.println("Quantidade de tropas menor que as disponiveis. Escolha novamente");
 				check = true;
 			}			
 			
@@ -253,7 +253,7 @@ public class Game {
 			EstadoAux.addTropas(tropasAux);
 		}
 		
-		System.out.println("Fim da distribui��o de tropas do jogador " + jogador.getCor());
+		System.out.println("Fim da distribuicao de tropas do jogador " + jogador.getCor());
 		System.out.println("------------------------------------------------------------");
 		
 	}	

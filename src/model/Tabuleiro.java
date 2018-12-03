@@ -13,7 +13,8 @@ public class Tabuleiro {
 		return Regioes;
 	}
 	
-	public void printMapa() {		
+	public void printMapa() {	
+		System.out.println("------------------------------------ MAPA ----------------------------------");
 		for (int i = 0;i < Regioes.size(); i++) {
 			System.out.print(Regioes.get(i).getNome() + " - ");
 			for (int j = 0; j < Regioes.get(i).getEstados().size();	j++) {
