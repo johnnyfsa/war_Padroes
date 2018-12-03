@@ -169,8 +169,11 @@ public class Game {
 	
 	public void trocarCartas(Jogador player) 
 	{
-		
+		//exibe a mão
+		this.exibirMao(player);
+		//faz mais alguma coisa
 	}
+	
 	private void exibirMao(Jogador player) 
 	{
 		for(int i=0;i<player.getMao().size();i++) 
