@@ -106,7 +106,7 @@ public class CombateController {
 					    
 		mapa.printMapa();	
 		
-		System.out.println("Deseja atacar novamente?\r\n1 - Sim\r\n2 - Não");
+		System.out.println("Jogador " + jogador.getCor() + ", você deseja atacar novamente?\r\n1 - Sim\r\n2 - Não");
 		int escolha = scan.nextInt();
 		if (escolha == 1)
 			combateTropas(jogador, mapa);		
