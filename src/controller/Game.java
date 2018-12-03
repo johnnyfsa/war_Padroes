@@ -172,6 +172,7 @@ public class Game {
 		//exibe a mão
 		this.exibirMao(player);
 		//faz mais alguma coisa
+		ArrayList<Carta> MaoAux = player.getMao();
 	}
 	
 	private void exibirMao(Jogador player) 
@@ -182,6 +183,10 @@ public class Game {
 			{
 				CartaEstado aux = (CartaEstado) player.getMao().get(i);
 				System.out.println(aux.getForma().getTipoForma());
+			}
+			else if(player.getMao().get(i).getTipo().equals("Coringa")) 
+			{
+				System.out.println(player.getMao().get(i).getTipo());
 			}
 		}
 	}
