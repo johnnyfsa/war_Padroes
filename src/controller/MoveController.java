@@ -70,7 +70,10 @@ public class MoveController {
 				}
 			}
 		}
-		
+		System.out.println("Deseja mover tropas novamente?\r\n1 - Sim\r\n2 - N�o");
+		int escolha = scan.nextInt();
+		if (escolha == 1)
+		this.moveTropas();
 	}
 	
 	public Estado getOrigem() {

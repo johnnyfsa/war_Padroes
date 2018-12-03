@@ -14,7 +14,7 @@ import model.*;
 
 public class Game {
 	
-	public Tabuleiro Mapa;
+	public Tabuleiro Mapa= new Tabuleiro();
 	private MoveController Mover = new MoveController(Mapa);
 	private CombateController Combate = new CombateController();
 	private ArrayList<Jogador> Jogadores = new ArrayList<Jogador>();
@@ -37,7 +37,7 @@ public class Game {
 		
 	
 	public void criarMapa() {
-		Mapa = new Tabuleiro();
+		
 		try {
 			Scanner scanner = new Scanner (new FileReader("map.txt"));
 			while (scanner.hasNext()) 
@@ -228,7 +228,7 @@ public class Game {
 				Estado Aux = Mapa.getEstado(Escolhas[i]);
 				//System.out.println(Mapa.getEstado(Escolhas[i]).getDominante().getCor() + " - " + jogador.getCor());
 				if (!(Mapa.getEstado(Escolhas[i]).getDominante().equals(jogador))) {
-					System.out.println("Estado " + Aux.getNome() +" não pertence a você! Escolha novamente");
+					System.out.println("Estado " + Aux.getNome() +" nï¿½o pertence a vocï¿½! Escolha novamente");
 					check = true;
 					break;
 				}
@@ -238,10 +238,10 @@ public class Game {
 				
 			}
 			if (maxTrops > tropasDisponiveis) {
-				System.out.println("Quantidade de tropas excede as disponíveis. Escolha novamente");
+				System.out.println("Quantidade de tropas excede as disponï¿½veis. Escolha novamente");
 				check = true;
 			} else if(maxTrops < tropasDisponiveis) {
-				System.out.println("Quantidade de tropas menor que as disponíveis. Escolha novamente");
+				System.out.println("Quantidade de tropas menor que as disponï¿½veis. Escolha novamente");
 				check = true;
 			}			
 			
@@ -253,7 +253,7 @@ public class Game {
 			EstadoAux.addTropas(tropasAux);
 		}
 		
-		System.out.println("Fim da distribuição de tropas do jogador " + jogador.getCor());
+		System.out.println("Fim da distribuiï¿½ï¿½o de tropas do jogador " + jogador.getCor());
 		System.out.println("------------------------------------------------------------");
 		
 	}	
