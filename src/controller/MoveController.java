@@ -22,6 +22,7 @@ public class MoveController {
 	}
 	public void leitura()
 	{
+		System.out.println("Digite o estado de Origem, o Destino e a quatidade de tropas:\r\n");
 		String Org = scan.next();
 		String Dest = scan.next();
 		numTropas = scan.nextInt();

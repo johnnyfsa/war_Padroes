@@ -189,7 +189,6 @@ public class Game {
 				escolha = 2;
 			}
 			if(escolha == 2) {
-				System.out.println("Entrou no move tropas");
 				Mover.moveTropas();			
 			}
 			
