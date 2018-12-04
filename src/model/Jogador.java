@@ -3,7 +3,7 @@ package model;
 import java.util.ArrayList;
 
 public class Jogador {
-	private ArrayList<Carta> Mao;
+	private ArrayList<Carta> Mao = new ArrayList<Carta>();
 	private String Cor;
 	private int Exercitos_Disponiveis;
     private int quantidadeTerritorios = 0;
@@ -15,6 +15,10 @@ public class Jogador {
     
     public void adicionarTerritorios(){
         quantidadeTerritorios++;
+    }
+    
+    public void addCarta(Carta carta) {
+    	Mao.add(carta);
     }
     
     public void removerTerritorios(){

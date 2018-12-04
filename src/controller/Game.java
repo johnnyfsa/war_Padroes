@@ -236,14 +236,11 @@ public class Game {
 				Mover.moveTropas();			
 			}
 			
-			if (Jogadores.get(i).getQuantidadeTerritorios() > territorioInicial) {
-//				Ganha cartas
-				
+			if (Jogadores.get(i).getQuantidadeTerritorios() > territorioInicial) {			
+				Jogadores.get(i).addCarta(Baralho.get(0));
+				System.out.println("Jogador " + Jogadores.get(i).getCor() + " pegou a carta " + Baralho.get(0).getTipo());
+				Baralho.remove(0);
 			}
-			//checar se jogador ganhou territorio, pegar cartar, encerrar turno
-			
-			
-			
 			
 			//fim do turno
 		}
