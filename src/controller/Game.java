@@ -172,20 +172,65 @@ public class Game {
 		//exibe a mão
 		this.exibirMao(player);
 		//faz mais alguma coisa
-		ArrayList<Carta> auxMao = player.getMao();
-		boolean circulo3;
-		boolean quadrado3;
-		boolean triangulo3;
-		boolean diferentes;
+		ArrayList<Carta> auxMao = new ArrayList<Carta>();
+		 int circulo3=0;
+		 int quadrado3=0;
+		 int triangulo3=0;
+		
 		Scanner scan = new Scanner(System.in);
+		System.out.println("Digite os numeros referentes às cartas que deseja trocar:");
 		int c1 = scan.nextInt();
 		int c2 = scan.nextInt();
 		int c3 = scan.nextInt();
+		auxMao.add(player.getMao().get(c1));
+		auxMao.add(player.getMao().get(c2));
+		auxMao.add(player.getMao().get(c3));
 		
-		
-		
-			
-		
+		for(int i=0;i<auxMao.size();i++) 
+		{
+			if(auxMao.get(i).getTipo().equals("Coringa")) 
+			{
+				circulo3++;
+				quadrado3++;
+				triangulo3++;
+			}
+			else
+			{
+				CartaEstado estadoAux = (CartaEstado)auxMao.get(i);
+				if(estadoAux.getForma().getTipoForma().equals("triangulo")) 
+				{
+					triangulo3++;
+				}
+				else if(estadoAux.getForma().getTipoForma().equals("quadrado")) 
+				{
+					quadrado3++;
+				}
+				else if(estadoAux.getForma().getTipoForma().equals("circulo")) 
+				{
+					circulo3++;
+				}
+			}
+		}
+		if(triangulo3==3) 
+		{
+			tropasExtras+=5;
+		}
+		else if(quadrado3==3) 
+		{
+			tropasExtras+=5;
+		}
+		else if(circulo3==3) 
+		{
+			tropasExtras+=5;
+		}
+		else if(circulo3 == quadrado3 && quadrado3==triangulo3 && triangulo3!=0) 
+		{
+			tropasExtras+=5;
+		}
+		else 
+		{
+			System.out.println("Deu ruim, Bahia");
+		}
 	}
 	
 	private void exibirMao(Jogador player) 
