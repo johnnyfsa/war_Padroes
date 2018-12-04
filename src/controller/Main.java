@@ -38,10 +38,10 @@ public class Main {
                 //Jogo.distribuirTropas(scan);
                 Jogo.rodadaInicial();                
                 boolean win_condition = true;
-                while(win_condition) 
+                while(Jogo.getStatus()) 
                 {
                 	Jogo.rodadaComum();
-                	win_condition=false;
+                	
                 }
                 scan.close();
                 

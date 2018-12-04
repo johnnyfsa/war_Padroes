@@ -21,7 +21,8 @@ public class MoveController {
 		Recebeu = new ArrayList<Estado>();
 	}
 	public void leitura()
-	{
+	{	
+		
 		System.out.println("Digite o estado de Origem, o Destino e a quatidade de tropas:\r\n");
 		String Org = scan.next();
 		String Dest = scan.next();
@@ -37,7 +38,8 @@ public class MoveController {
 		
 	}
 	public void moveTropas()
-	{
+	{	
+		
 		this.leitura();
 		
 		if(!Recebeu.isEmpty()) 
@@ -71,10 +73,11 @@ public class MoveController {
 				}
 			}
 		}
-		System.out.println("Deseja mover tropas novamente?\r\n1 - Sim\r\n2 - Não");
-		int escolha = scan.nextInt();
+		Scanner scanMove = new Scanner(System.in);
+		System.out.println("Deseja mover tropas novamente?\r\n1 - Sim\r\n2 - Nao");
+		int escolha = scanMove.nextInt();
 		if (escolha == 1)
-		this.moveTropas();
+			this.moveTropas();
 	}
 	
 	public Estado getOrigem() {

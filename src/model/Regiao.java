@@ -22,5 +22,15 @@ public class Regiao {
 	public void addEstados(Estado estado) {
 		Estados.add(estado);
 	}
-
+	
+	public Jogador getDomintante() {
+		Jogador dominante = Estados.get(0).getDominante();
+		for (int i = 1; i < Estados.size(); i++) {
+			if (!(Estados.get(i).getDominante().equals(dominante))) {
+				return null;
+			}			
+		}
+		return dominante;
+	}
+	
 }

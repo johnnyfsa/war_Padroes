@@ -15,10 +15,17 @@ import model.*;
 public class Game {
 	
 	public Tabuleiro Mapa= new Tabuleiro();
+	private boolean Status = true;
 	private MoveController Mover = new MoveController(Mapa);
 	private CombateController Combate = new CombateController();
 	private ArrayList<Jogador> Jogadores = new ArrayList<Jogador>();
 	private ArrayList<Carta> Baralho = new ArrayList<Carta>();
+	private int quantidadeTrocas = 0;
+	
+	
+	public boolean getStatus() {
+		return Status;
+	}
 	
 	public void setCordoJogador(Jogador player, String Cor)
 	{
@@ -167,6 +174,18 @@ public class Game {
 		"--------------------------------------------------------------");
 	}
 	
+	public int tropasRegioes(Jogador jogador) {
+		int ret = 0;
+		
+		for (int i = 0; i < Mapa.getRegioes().size();i++) {
+			if (jogador.equals(Mapa.getRegioes().get(i).getDomintante())) {
+				System.out.println("Jogador " + jogador.getCor() + " domina a regiao " + Mapa.getRegioes().get(i).getNome() + ". Por isso ganha " + Mapa.getRegioes().get(i).getEstados().size() + " tropas extras.");
+				ret += Mapa.getRegioes().get(i).getEstados().size();
+			}
+		}		
+		return ret;
+	}
+	
 	public void trocarCartas(Jogador player, int tropasExtras) 
 	{
 		//exibe a mão
@@ -178,7 +197,7 @@ public class Game {
 		 int triangulo3=0;
 		
 		Scanner scan = new Scanner(System.in);
-		System.out.println("Digite os numeros referentes às cartas que deseja trocar:");
+		System.out.println("Digite os numeros referentes as cartas que deseja trocar:");
 		int c1 = scan.nextInt();
 		int c2 = scan.nextInt();
 		int c3 = scan.nextInt();
@@ -249,6 +268,24 @@ public class Game {
 		}
 	}
 	
+	public void condicaoGanho() {		
+		Jogador ganhador = Mapa.getRegioes().get(0).getDomintante();
+		if(ganhador == null) {
+			return;
+		} else {
+			for (int i = 1; i < Mapa.getRegioes().size();i++) {
+				if (!(Mapa.getRegioes().get(i).getDomintante().equals(ganhador))) {
+					break;
+				}
+				System.out.println("veio aqui");
+				Status = false;
+				System.out.println("Jogador " + ganhador.getCor() + " foi o vencedor da partida");
+				System.out.println("----------------------------");
+				printMapa();
+			}
+		}
+	}
+	
 	public void rodadaComum() throws Exception
 	{
 		
@@ -256,44 +293,70 @@ public class Game {
 		//Jogador_loop
 		for (int i = Jogadores.size()-1; i >= 0; i--) {
 			//Calcular tropas extras e associar na variavel
-			int tropasExtras = 0;
+			int tropasExtras = 0;			
 			int territorioInicial = Jogadores.get(i).getQuantidadeTerritorios();
-			inicioDeTurno(Jogadores.get(i), tropasExtras);
 			if(Jogadores.get(i).getMao().size()>=3) 
 			{
-				System.out.println("Deseja Trocar Cartas?");
-				//trocar
+				System.out.println("Deseja Trocar Cartas?\r\n1 - Sim\r\n2 - Nao");
+				int escolha = scan.nextInt();
+				if (escolha == 1) {
+					trocarCartas(Jogadores.get(i), tropasExtras);
+				}
 			}
 			else 
 			{
-				System.out.println("Não tem cartas pra trocar");
+				System.out.println("Nao tem cartas pra trocar");
 			}
+			
+			inicioDeTurno(Jogadores.get(i), tropasExtras);
+			
 			System.out.println("Jogador da vez: " + Jogadores.get(i).getCor() + ": Selecione o que deseja fazer: \r\n1 - Atacar\r\n2 - Mover Tropas\r\n3 - Encerrar");						
 			int escolha = scan.nextInt();
 			
 			//ataque
 			if(escolha == 1) {
 				Combate.combateTropas(Jogadores.get(i), Mapa);				
-				escolha = 2;
+				System.out.println("Deseja mover tropas?\r\n2 - Sim \r\n3 - Encerrar");
+				escolha = scan.nextInt();
 			}
 			//movimentação de tropas
 			if(escolha == 2) {
 				Mover.moveTropas();			
 			}
-			
-			if (Jogadores.get(i).getQuantidadeTerritorios() > territorioInicial) {			
-				Jogadores.get(i).addCarta(Baralho.get(0));
-				System.out.println("Jogador " + Jogadores.get(i).getCor() + " pegou a carta " + Baralho.get(0).getTipo());
-				Baralho.remove(0);
+			System.out.println(Jogadores.get(i).getQuantidadeTerritorios() + " - " + territorioInicial);
+			if (Jogadores.get(i).getQuantidadeTerritorios() > territorioInicial) {
+				if (Baralho.isEmpty())
+					System.out.println("Baralho sem cartas!");
+				{
+					Jogadores.get(i).addCarta(Baralho.get(0));
+					System.out.println("Jogador " + Jogadores.get(i).getCor() + " pegou a carta " + Baralho.get(0).getTipo());
+					Baralho.remove(0);
+				}				
 			}
 			
+			
+			condicaoGanho();
+			if (Status == false) {
+				return;
+			}
 			//fim do turno
+		}
+		
+	}
+	
+	public void setGanhador(Jogador jogador) {
+		for (int i = 0; i < Mapa.getRegioes().size();i++) {
+			Regiao r = Mapa.getRegioes().get(i);
+			for (int j = 0; j < r.getEstados().size();j++) {
+				Estado e = r.getEstados().get(j);
+				e.setDominante(jogador);
+			}
 		}
 	}
 	
 	public void inicioDeTurno(Jogador jogador, int tropasExtras) throws Exception {
 		Scanner scan = new Scanner(System.in);
-		int tropasDisponiveis = ((int)Math.ceil(jogador.getQuantidadeTerritorios()/2.0)) + tropasExtras;		
+		int tropasDisponiveis;		
 		boolean check = false;		
 		String Escolhas[];
 		Object n[];		
@@ -301,6 +364,8 @@ public class Game {
 		do {
 			printMapa();
 			check = false;
+			tropasExtras = tropasRegioes(jogador);
+			tropasDisponiveis = ((int)Math.ceil(jogador.getQuantidadeTerritorios()/2.0)) + tropasExtras;
 			System.out.println("Jogador de cor " + jogador.getCor() + ": Tem " + tropasDisponiveis + " tropas para distribuir:");
 			Escolhas = scan.nextLine().replaceAll("\\s", "").split("-|\\,");
 			n = new Object[Escolhas.length];
@@ -325,7 +390,8 @@ public class Game {
 			if (maxTrops > tropasDisponiveis) {
 				System.out.println("Quantidade de tropas excede as disponiveis. Escolha novamente");
 				check = true;
-			} else if(maxTrops < tropasDisponiveis) {
+			} 
+			else if(maxTrops < tropasDisponiveis) {
 				System.out.println("Quantidade de tropas menor que as disponiveis. Escolha novamente");
 				check = true;
 			}			
