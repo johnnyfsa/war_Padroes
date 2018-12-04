@@ -186,82 +186,117 @@ public class Game {
 		return ret;
 	}
 	
-	public void trocarCartas(Jogador player, int tropasExtras) 
+	public int trocarCartas(Jogador player) 
 	{
 		//exibe a mão
+		int tropasExtras=0;
 		this.exibirMao(player);
 		//faz mais alguma coisa
 		ArrayList<Carta> auxMao = new ArrayList<Carta>();
 		 int circulo3=0;
 		 int quadrado3=0;
 		 int triangulo3=0;
-		
+		 int coringa=0;
 		Scanner scan = new Scanner(System.in);
 		System.out.println("Digite os numeros referentes as cartas que deseja trocar:");
 		int c1 = scan.nextInt();
 		int c2 = scan.nextInt();
 		int c3 = scan.nextInt();
-		auxMao.add(player.getMao().get(c1));
-		auxMao.add(player.getMao().get(c2));
-		auxMao.add(player.getMao().get(c3));
 		
+		auxMao.add(player.getMao().get(c1));
+		CartaEstado printa = (CartaEstado) auxMao.get(0);
+		System.out.println(printa.getForma().getTipoForma());
+		auxMao.add(player.getMao().get(c2));
+		printa = (CartaEstado) auxMao.get(1);
+		System.out.println(printa.getForma().getTipoForma());
+		auxMao.add(player.getMao().get(c3));
+		printa = (CartaEstado) auxMao.get(2);
+		System.out.println(printa.getForma().getTipoForma());
 		for(int i=0;i<auxMao.size();i++) 
 		{
-			if(auxMao.get(i).getTipo().equals("Coringa")) 
+			if(auxMao.get(i).getTipo().equalsIgnoreCase("Coringa")) 
 			{
-				circulo3++;
-				quadrado3++;
-				triangulo3++;
+				coringa++;
 			}
 			else
 			{
 				CartaEstado estadoAux = (CartaEstado)auxMao.get(i);
-				if(estadoAux.getForma().getTipoForma().equals("triangulo")) 
+				if(estadoAux.getForma().getTipoForma().equalsIgnoreCase("triangulo")) 
 				{
 					triangulo3++;
 				}
-				else if(estadoAux.getForma().getTipoForma().equals("quadrado")) 
+				else if(estadoAux.getForma().getTipoForma().equalsIgnoreCase("quadrado")) 
 				{
 					quadrado3++;
 				}
-				else if(estadoAux.getForma().getTipoForma().equals("circulo")) 
+				else if(estadoAux.getForma().getTipoForma().equalsIgnoreCase("circulo")) 
 				{
 					circulo3++;
 				}
 			}
 		}
-		if(triangulo3==3) 
+		if(triangulo3+coringa==3) 
 		{
-			tropasExtras+=5;
+			tropasExtras+=4 + 2*quantidadeTrocas;
+			quantidadeTrocas++;
+			Baralho.add(player.getMao().remove(c3));
+			Baralho.add(player.getMao().remove(c2));
+			Baralho.add(player.getMao().remove(c1));
 		}
-		else if(quadrado3==3) 
+		else if(quadrado3+coringa==3) 
 		{
-			tropasExtras+=5;
+			tropasExtras+=4 + 2*quantidadeTrocas;;
+			quantidadeTrocas++;
+			Baralho.add(player.getMao().remove(c3));
+			Baralho.add(player.getMao().remove(c2));
+			Baralho.add(player.getMao().remove(c1));
+			
 		}
-		else if(circulo3==3) 
+		else if(circulo3+coringa==3) 
 		{
-			tropasExtras+=5;
+			tropasExtras+=4 + 2*quantidadeTrocas;;
+			quantidadeTrocas++;
+			Baralho.add(player.getMao().remove(c3));
+			Baralho.add(player.getMao().remove(c2));
+			Baralho.add(player.getMao().remove(c1));
+			
 		}
-		else if(circulo3 == quadrado3 && quadrado3==triangulo3 && triangulo3!=0) 
+		else if(circulo3==1 && quadrado3==1 && triangulo3==1) 
 		{
-			tropasExtras+=5;
+			tropasExtras+=4 + 2*quantidadeTrocas;;
+			quantidadeTrocas++;
+			Baralho.add(player.getMao().remove(c1));
+			Baralho.add(player.getMao().remove(c2));
+			Baralho.add(player.getMao().remove(c3));
+			
+		}
+		else if(coringa>0) 
+		{
+			tropasExtras+=4 + 2*quantidadeTrocas;;
+			quantidadeTrocas++;
+			Baralho.add(player.getMao().remove(c1));
+			Baralho.add(player.getMao().remove(c2));
+			Baralho.add(player.getMao().remove(c3));
+			
 		}
 		else 
 		{
-			System.out.println("Deu ruim, Bahia");
+			System.out.println("Nao foi possivel trocar");
+			
 		}
+		return tropasExtras;
 	}
 	
 	private void exibirMao(Jogador player) 
 	{
 		for(int i=0;i<player.getMao().size();i++) 
 		{
-			if(player.getMao().get(i).getTipo().equals("Carta Estado")) 
+			if(player.getMao().get(i).getTipo().equalsIgnoreCase("Carta Estado")) 
 			{
 				CartaEstado aux = (CartaEstado) player.getMao().get(i);
 				System.out.println(i+": "+ aux.getForma().getTipoForma());
 			}
-			else if(player.getMao().get(i).getTipo().equals("Coringa")) 
+			else if(player.getMao().get(i).getTipo().equalsIgnoreCase("Coringa")) 
 			{
 				System.out.println(i+": "+player.getMao().get(i).getTipo());
 			}
@@ -274,6 +309,8 @@ public class Game {
 			return;
 		} else {
 			for (int i = 1; i < Mapa.getRegioes().size();i++) {
+				if (Mapa.getRegioes().get(i).getDomintante() == null)
+					return;
 				if (!(Mapa.getRegioes().get(i).getDomintante().equals(ganhador))) {
 					break;
 				}
@@ -288,10 +325,12 @@ public class Game {
 	
 	public void rodadaComum() throws Exception
 	{
-		
+		boolean conquista;
 		Scanner scan = new Scanner(System.in).useDelimiter("\\r\n|\\s|\\-");
 		//Jogador_loop
 		for (int i = Jogadores.size()-1; i >= 0; i--) {
+			System.out.println("--------------------------------- Rodada do jogador " + Jogadores.get(i).getCor() + "-----------------");
+			conquista = false;
 			//Calcular tropas extras e associar na variavel
 			int tropasExtras = 0;			
 			int territorioInicial = Jogadores.get(i).getQuantidadeTerritorios();
@@ -300,7 +339,8 @@ public class Game {
 				System.out.println("Deseja Trocar Cartas?\r\n1 - Sim\r\n2 - Nao");
 				int escolha = scan.nextInt();
 				if (escolha == 1) {
-					trocarCartas(Jogadores.get(i), tropasExtras);
+				    tropasExtras +=	trocarCartas(Jogadores.get(i));
+					System.out.println(tropasExtras);
 				}
 			}
 			else 
@@ -315,7 +355,7 @@ public class Game {
 			
 			//ataque
 			if(escolha == 1) {
-				Combate.combateTropas(Jogadores.get(i), Mapa);				
+				conquista = Combate.combateTropas(Jogadores.get(i), Mapa);				
 				System.out.println("Deseja mover tropas?\r\n2 - Sim \r\n3 - Encerrar");
 				escolha = scan.nextInt();
 			}
@@ -323,8 +363,8 @@ public class Game {
 			if(escolha == 2) {
 				Mover.moveTropas();			
 			}
-			System.out.println(Jogadores.get(i).getQuantidadeTerritorios() + " - " + territorioInicial);
-			if (Jogadores.get(i).getQuantidadeTerritorios() > territorioInicial) {
+			
+			if (conquista) {
 				if (Baralho.isEmpty())
 					System.out.println("Baralho sem cartas!");
 				{
@@ -364,7 +404,7 @@ public class Game {
 		do {
 			printMapa();
 			check = false;
-			tropasExtras = tropasRegioes(jogador);
+			tropasExtras += tropasRegioes(jogador);
 			tropasDisponiveis = ((int)Math.ceil(jogador.getQuantidadeTerritorios()/2.0)) + tropasExtras;
 			System.out.println("Jogador de cor " + jogador.getCor() + ": Tem " + tropasDisponiveis + " tropas para distribuir:");
 			Escolhas = scan.nextLine().replaceAll("\\s", "").split("-|\\,");

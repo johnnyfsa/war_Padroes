@@ -23,7 +23,8 @@ public class CombateController {
 		}
 	}	
 	
-	public void combateTropas(Jogador jogador, Tabuleiro mapa) throws Exception {
+	public boolean combateTropas(Jogador jogador, Tabuleiro mapa) throws Exception {
+		boolean ret = false;
 		System.out.println("Modo Combate");
 		boolean podeAtacar = true;
 		Scanner scan = new Scanner(System.in);
@@ -44,7 +45,7 @@ public class CombateController {
 			System.out.println("Eh necessario mais tropas para atacar!");
 			podeAtacar = false;
 		}		
-//			Entra aqui lógica para ataque!
+//			Entra aqui lï¿½gica para ataque!
 		if (podeAtacar) {
 			int tropasAtacantes = setTropas(origem.getQuantidade_de_Tropas()-1);
 			int tropasDefensoras = setTropas(destino.getQuantidade_de_Tropas());
@@ -80,8 +81,11 @@ public class CombateController {
 			}
 			
 			if (destino.getQuantidade_de_Tropas() == 0) {
-				System.out.println("Jogador " + jogador.getCor() + " ganhou o território " + destino.getNome());
+				System.out.println("Jogador " + jogador.getCor() + " ganhou o territï¿½rio " + destino.getNome());
+				destino.getDominante().alteraTerritorio(-1);
 				destino.setDominante(jogador);
+				jogador.alteraTerritorio(1);
+				ret = true;
 				int move = 0;
 				if ((origem.getQuantidade_de_Tropas()-1) >= 3) {
 					move = 3;				
@@ -108,13 +112,15 @@ public class CombateController {
 			mapa.printMapa();	
 		}
 				
-		System.out.println("Jogador " + jogador.getCor() + ", você deseja atacar novamente?\r\n1 - Sim\r\n2 - Não");
+		System.out.println("Jogador " + jogador.getCor() + ", vocï¿½ deseja atacar novamente?\r\n1 - Sim\r\n2 - Nï¿½o");
 		int escolha = scan.nextInt();
-		if (escolha == 1)
-			combateTropas(jogador, mapa);
-
-	}
+		if (escolha == 1) {
+			return combateTropas(jogador, mapa);
+		} else {
+		return ret;
 	
+		}
+	}
 	
 	
 }

@@ -11,10 +11,24 @@ public class Jogador {
     public Jogador() 
     {
     	Mao = new ArrayList<Carta>();
+//    	CartaEstado aux= new CartaEstado();
+//    	aux.setForma(new Triangulo());
+//    	CartaEstado au2x= new CartaEstado();
+//    	au2x.setForma(new Triangulo());
+//    	CartaEstado aux3= new CartaEstado();
+//    	aux3.setForma(new Triangulo());
+//    	
+//    	Mao.add(aux);
+//    	Mao.add(au2x);
+//    	Mao.add(aux3);
     }
     
     public void adicionarTerritorios(){
         quantidadeTerritorios++;
+    }
+    
+    public void alteraTerritorio(int i) {
+    	quantidadeTerritorios += i;
     }
     
     public void addCarta(Carta carta) {
