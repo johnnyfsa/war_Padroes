@@ -167,12 +167,25 @@ public class Game {
 		"--------------------------------------------------------------");
 	}
 	
-	public void trocarCartas(Jogador player) 
+	public void trocarCartas(Jogador player, int tropasExtras) 
 	{
 		//exibe a mão
 		this.exibirMao(player);
 		//faz mais alguma coisa
-		ArrayList<Carta> MaoAux = player.getMao();
+		ArrayList<Carta> auxMao = player.getMao();
+		boolean circulo3;
+		boolean quadrado3;
+		boolean triangulo3;
+		boolean diferentes;
+		Scanner scan = new Scanner(System.in);
+		int c1 = scan.nextInt();
+		int c2 = scan.nextInt();
+		int c3 = scan.nextInt();
+		
+		
+		
+			
+		
 	}
 	
 	private void exibirMao(Jogador player) 
@@ -182,11 +195,11 @@ public class Game {
 			if(player.getMao().get(i).getTipo().equals("Carta Estado")) 
 			{
 				CartaEstado aux = (CartaEstado) player.getMao().get(i);
-				System.out.println(aux.getForma().getTipoForma());
+				System.out.println(i+": "+ aux.getForma().getTipoForma());
 			}
 			else if(player.getMao().get(i).getTipo().equals("Coringa")) 
 			{
-				System.out.println(player.getMao().get(i).getTipo());
+				System.out.println(i+": "+player.getMao().get(i).getTipo());
 			}
 		}
 	}
